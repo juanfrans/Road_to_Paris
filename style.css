@@ -4,6 +4,11 @@ body {
 	font-family: "proxima-nova", !important sans-serif;
 	font-size: 14px;
 	max-width: 720px;
+	line-height: 50%;
+}
+
+head{
+	line-height: 10%;
 }
 
 /* unvisited link */

@@ -1,6 +1,5 @@
 //Global variables
 var margin = 10;
-
 var img;
 var positionX;
 var positionY;
@@ -11,11 +10,13 @@ var mapWidth, mapHeight, titleStartX, titleStartY;
 var direction, directionV, characters, characters2;
 var vOffset = 22;
 var screenRatio = 1;
+var imgPrecipitation, imgTemperature, imgOcean, imgAnimal, imgSociety, imgPlant;
 
 //Preload images and data
 function preload(){
 	//img = loadImage("data/World_Projected_Black.png");
-	img = loadImage("data/World_Projected_WGS1984-02.png")
+	img = loadImage("data/World_Projected_WGS1984-02.png");
+	imgPrecipitation = loadImage("data/icon_19490/icon_19490.svg");
 	//img = loadImage("data/World_Projected_White.png")
 	events = loadTable('data/ENSO_Infographic_Data_Clean.csv');
 }
@@ -95,6 +96,8 @@ function draw(){
 			directionV = events.getColumn(17)[i];
 			characters = events.getColumn(0)[i].length;
 			characters2 = events.getColumn(1)[i].length;
+
+
 			//console.log(direction);
 			noStroke();
 			fill(100, 60);
@@ -126,9 +129,11 @@ function draw(){
 			}
 			text(events.getColumn(0)[i], margin+positionX*1+7*direction, margin+positionY*1-38*screenRatio-vOffset*directionV*screenRatio);
 			if (screenRatio > 0.8){
-			textLeading(10);
-			text(events.getColumn(1)[i], margin+positionX*1+7*direction*screenRatio, margin+positionY*1-35*screenRatio-vOffset*directionV*screenRatio, characters*5.25, 100);
-		}
+			//textLeading(10);
+			//text(events.getColumn(1)[i], margin+positionX*1+7*direction*screenRatio, margin+positionY*1-35*screenRatio-vOffset*directionV*screenRatio, characters*5.25, 100);
+			}
+			//Add Icon
+			image(imgPrecipitation, margin+positionX*1+7*direction, margin+positionY*1-35*screenRatio-vOffset*directionV*screenRatio, 15, 15);
 		}else{}
 	}
 

@@ -1,36 +1,77 @@
 //Global variables
 var margin = 10;
-var canvasWidth = 1280;
-var canvasHeight = 720;
+
 var img;
 var positionX;
 var positionY;
 var ellipseSize = 2;
 var startX = 20;
-var date = 50;
+var dateColumn = 5;
 var mapWidth, mapHeight, titleStartX, titleStartY;
-var direction, characters, characters2;
+var direction, directionV, characters, characters2;
+var vOffset = 22;
+var screenRatio = 1;
 
 //Preload images and data
 function preload(){
 	//img = loadImage("data/World_Projected_Black.png");
-	img = loadImage("data/World_Projected_Light.png")
+	img = loadImage("data/World_Projected_WGS1984-02.png")
 	//img = loadImage("data/World_Projected_White.png")
-	events = loadTable('data/ENSO_Data_01.csv');
+	events = loadTable('data/ENSO_Infographic_Data_Clean.csv');
 }
 
 function setup() {
-	createCanvas(canvasWidth, canvasHeight);
+	var canvasWidth = 1280;
+	var canvasHeight = 720;
+	//createCanvas(canvasWidth, canvasHeight);
+	if (windowWidth < 1280 && windowWidth > 1024){
+		//canvasWidth = 1024;
+		screenRatio = 0.8;
+	}
+	else if(windowWidth < 1024 && windowWidth > 800){
+		//canvasWidth = 800;
+		screenRatio = .7;
+	}
+	else if(windowWidth < 800){
+		//canvasWidth = 640;
+		screenRatio = .5;
+	}
+	else{
+		//canvasWidth = 1280;
+		screenRatio = 1;
+	}
+	createCanvas(windowWidth, windowHeight);
 	colorMode(HSB, 360, 100, 100, 100);
 	background(100);
-	mapWidth = canvasWidth-margin*2;
+	mapWidth = windowWidth-margin*2;
 	mapHeight = mapWidth/img.width*img.height;
 	titleStartY = mapHeight-150;
 	titleStartX = margin+10;
 }
 
 function draw(){
+	if (windowWidth < 1280 && windowWidth > 1024){
+		//canvasWidth = 1024;
+		screenRatio = 0.8;
+	}
+	else if(windowWidth < 1024 && windowWidth > 800){
+		//canvasWidth = 800;
+		screenRatio = .7;
+	}
+	else if(windowWidth < 800){
+		//canvasWidth = 640;
+		screenRatio = .5;
+	}
+	else{
+		//canvasWidth = 1280;
+		screenRatio = 1;
+	}
 	background(100);
+	mapWidth = windowWidth-margin*2;
+	mapHeight = mapWidth/img.width*img.height;
+	titleStartY = mapHeight-150;
+	titleStartX = margin+10;
+	//screenRatio = 
 
 	//Temp Border
 	noFill();
@@ -43,37 +84,51 @@ function draw(){
 
 	//Loop through the data points and plot the events
 	for (var i = events.getRowCount() - 1; i >= 1; i--) {
-		if(date == events.getColumn(5)[i] || date == events.getColumn(6)[i] || date == events.getColumn(7)[i] || date == events.getColumn(8)[i]){
-			positionX = map(events.getColumn(3)[i], 0, 1280, 0, mapWidth);
+		if(events.getColumn(dateColumn)[i] > 0){
+			positionX = map(events.getColumn(3)[i], -180, 180, mapWidth*.5, mapWidth*1.5);
+			if(positionX>mapWidth){
+				positionX = positionX - mapWidth;
+			}
 			//console.log(i+" "+margin+" "+img.width+" "+mapWidth+" "+positionX+" "+events.getColumn(3)[i]);
-			positionY = map(events.getColumn(4)[i], 0, 657, 0, mapHeight);
-			direction = events.getColumn(8)[i];
+			positionY = map(events.getColumn(2)[i], 90, -90, 0, mapHeight);
+			direction = events.getColumn(16)[i];
+			directionV = events.getColumn(17)[i];
 			characters = events.getColumn(0)[i].length;
 			characters2 = events.getColumn(1)[i].length;
 			//console.log(direction);
 			noStroke();
 			fill(100, 60);
-			rect(margin+positionX*1+5*direction, margin+positionY*1-34, characters*5.3*direction, characters2/characters*10.5);
-			rect(margin+positionX*1+5*direction, margin+positionY*1-45, characters*5.3*direction, 9);
+			//Explanation box
+			if (screenRatio > 0.8){
+				rect(margin+positionX*1+5*direction, margin+positionY*1-34*screenRatio-vOffset*directionV*screenRatio, characters*5.5*direction*screenRatio, characters2/characters*10.5*screenRatio);
+			}
+			//Title box
+			rect(margin+positionX*1+5*direction*screenRatio, margin+positionY*1-45*screenRatio-vOffset*directionV*screenRatio, characters*5.5*direction*screenRatio, 9*screenRatio);
+			//Marker
 			fill(35, 100, 100);
-			ellipse(margin+positionX, margin+positionY, 8, 8);
+			ellipse(margin+positionX, margin+positionY, 8*screenRatio, 8*screenRatio);
+			//Marker lines
 			stroke(35,100,100);
 			strokeWeight(.75);
-			line(margin+positionX*1, margin+positionY*1-5, margin+positionX*1, margin+positionY*1-35);
-			line(margin+positionX*1, margin+positionY*1-35, margin+positionX*1+characters*direction*5.35, margin+positionY*1-35);
+			//Vertical Line
+			line(margin+positionX*1, margin+positionY*1-5*screenRatio, margin+positionX*1, margin+positionY*1-35*screenRatio-vOffset*directionV*screenRatio);
+			//Horizontal Line
+			line(margin+positionX*1, margin+positionY*1-35*screenRatio-vOffset*directionV*screenRatio, margin+positionX*1+characters*direction*5.7*screenRatio, margin+positionY*1-35*screenRatio-vOffset*directionV*screenRatio);
 
 			noStroke();
 			fill(0);
-			textSize(8);
+			textSize(8*screenRatio);
 			if(direction>0){
 				textAlign(LEFT);
 			}
 			else{
 				textAlign(RIGHT);
 			}
-			text(events.getColumn(0)[i], margin+positionX*1+7*direction, margin+positionY*1-38);
+			text(events.getColumn(0)[i], margin+positionX*1+7*direction, margin+positionY*1-38*screenRatio-vOffset*directionV*screenRatio);
+			if (screenRatio > 0.8){
 			textLeading(10);
-			text(events.getColumn(1)[i], margin+positionX*1+7*direction, margin+positionY*1-35, characters*5.25, 100);
+			text(events.getColumn(1)[i], margin+positionX*1+7*direction*screenRatio, margin+positionY*1-35*screenRatio-vOffset*directionV*screenRatio, characters*5.25, 100);
+		}
 		}else{}
 	}
 
@@ -124,25 +179,30 @@ function draw(){
 	text("Economy", titleStartX+320/12*11-1, titleStartY+112);
 }
 
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+
+}
+
 function mousePressed(){
 	if (mouseX > titleStartX && mouseX < titleStartX+320/5-2 && mouseY > titleStartY+75 && mouseY < titleStartY+95){
-		date = 50;
+		dateColumn = 5;
 		console.log(date);
 	}
 	if (mouseX > titleStartX+320/5 && mouseX < titleStartX+320/5*2-2 && mouseY > titleStartY+75 && mouseY < titleStartY+95){
-		date = 1900;
+		dateColumn = 6;
 		console.log(date);
 	}
 	if (mouseX > titleStartX+320/5*2 && mouseX < titleStartX+320/5*3-2 && mouseY > titleStartY+75 && mouseY < titleStartY+95){
-		date = 70;
+		dateColumn = 7;
 		console.log(date);
 	}
 	if (mouseX > titleStartX+320/5*3 && mouseX < titleStartX+320/5*4-2 && mouseY > titleStartY+75 && mouseY < titleStartY+95){
-		date = 90;
+		dateColumn = 8;
 		console.log(date);
 	}
 	if (mouseX > titleStartX+320/5*4 && mouseX < titleStartX+320/5*5-2 && mouseY > titleStartY+75 && mouseY < titleStartY+95){
-		date = 20;
+		dateColumn = 9;
 		console.log(date);
 	}
 	if (mouseX > titleStartX && mouseX < titleStartX+320/5-2 && mouseY > titleStartY+75 && mouseY < titleStartY+95){

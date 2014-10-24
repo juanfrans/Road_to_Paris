@@ -11,12 +11,18 @@ var direction, directionV, characters, characters2;
 var vOffset = 22;
 var screenRatio = 1;
 var imgPrecipitation, imgTemperature, imgOcean, imgAnimal, imgSociety, imgPlant;
+var iconPosition = 0;
 
 //Preload images and data
 function preload(){
 	//img = loadImage("data/World_Projected_Black.png");
 	img = loadImage("data/World_Projected_WGS1984-02.png");
-	imgPrecipitation = loadImage("data/icon_19490/icon_19490.svg");
+	imgPrecipitation = loadImage("data/icon_precipitation/icon_precipitation.svg");
+	imgTemperature = loadImage("data/icon_temperature/icon_temperature.svg");
+	imgPlant = loadImage("data/icon_plant/icon_plant.svg");
+	imgSociety = loadImage("data/icon_society/icon_society.svg");
+	imgAnimal = loadImage("data/icon_bear/icon_bear.svg");
+	imgOcean = loadImage("data/icon_shark/icon_shark.svg");
 	//img = loadImage("data/World_Projected_White.png")
 	events = loadTable('data/ENSO_Infographic_Data_Clean.csv');
 }
@@ -85,6 +91,7 @@ function draw(){
 
 	//Loop through the data points and plot the events
 	for (var i = events.getRowCount() - 1; i >= 1; i--) {
+		iconPosition = 0;
 		if(events.getColumn(dateColumn)[i] > 0){
 			positionX = map(events.getColumn(3)[i], -180, 180, mapWidth*.5, mapWidth*1.5);
 			if(positionX>mapWidth){
@@ -103,12 +110,13 @@ function draw(){
 			fill(100, 60);
 			//Explanation box
 			if (screenRatio > 0.8){
-				rect(margin+positionX*1+5*direction, margin+positionY*1-34*screenRatio-vOffset*directionV*screenRatio, characters*5.5*direction*screenRatio, characters2/characters*10.5*screenRatio);
+				//rect(margin+positionX*1+5*direction, margin+positionY*1-34*screenRatio-vOffset*directionV*screenRatio, characters*5.5*direction*screenRatio, characters2/characters*10.5*screenRatio);
 			}
 			//Title box
 			rect(margin+positionX*1+5*direction*screenRatio, margin+positionY*1-45*screenRatio-vOffset*directionV*screenRatio, characters*5.5*direction*screenRatio, 9*screenRatio);
 			//Marker
 			fill(35, 100, 100);
+			ellipseMode(CENTER);
 			ellipse(margin+positionX, margin+positionY, 8*screenRatio, 8*screenRatio);
 			//Marker lines
 			stroke(35,100,100);
@@ -128,12 +136,47 @@ function draw(){
 				textAlign(RIGHT);
 			}
 			text(events.getColumn(0)[i], margin+positionX*1+7*direction, margin+positionY*1-38*screenRatio-vOffset*directionV*screenRatio);
+			//Explanation text
 			if (screenRatio > 0.8){
-			//textLeading(10);
+			textLeading(10);
 			//text(events.getColumn(1)[i], margin+positionX*1+7*direction*screenRatio, margin+positionY*1-35*screenRatio-vOffset*directionV*screenRatio, characters*5.25, 100);
 			}
+			
 			//Add Icon
-			image(imgPrecipitation, margin+positionX*1+7*direction, margin+positionY*1-35*screenRatio-vOffset*directionV*screenRatio, 15, 15);
+			ellipseMode(CORNER);
+			noStroke();
+			fill(35, 100, 100, 65);
+			if(events.getColumn(10)[i] > 0){
+			ellipse(margin+positionX*1+7*direction+10*iconPosition, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20, 20);
+			image(imgTemperature, margin+positionX*1+9*direction+10*iconPosition, margin+positionY*1-30*screenRatio-vOffset*directionV*screenRatio, 15, 15);
+			iconPosition = iconPosition + 1;
+			}
+			if(events.getColumn(11)[i] > 0){
+			ellipse(margin+positionX*1+7*direction+25*iconPosition, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20, 20);
+			image(imgPrecipitation, margin+positionX*1+7*direction+25*iconPosition, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20, 20);
+			iconPosition = iconPosition + 1;
+			}
+			if(events.getColumn(12)[i] > 0){
+			ellipse(margin+positionX*1+7*direction+10*iconPosition, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20, 20);
+			image(imgPlant, margin+positionX*1+9*direction+10*iconPosition, margin+positionY*1-30*screenRatio-vOffset*directionV*screenRatio, 15, 15);
+			iconPosition = iconPosition + 1;
+			}
+			if(events.getColumn(14)[i] > 0){
+			ellipse(margin+positionX*1+7*direction+10*iconPosition, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20, 20);
+			image(imgAnimal, margin+positionX*1+9*direction+10*iconPosition, margin+positionY*1-30*screenRatio-vOffset*directionV*screenRatio, 15, 15);
+			iconPosition = iconPosition + 1;
+			}
+			if(events.getColumn(13)[i] > 0){
+			ellipse(margin+positionX*1+7*direction+25*iconPosition, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20, 20);
+			image(imgOcean, margin+positionX*1+7*direction+25*iconPosition, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20, 20);
+			iconPosition = iconPosition + 1;
+			}
+			if(events.getColumn(15)[i] > 0){
+			ellipse(margin+positionX*1+7*direction+25*iconPosition, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20, 20);
+			image(imgSociety, margin+positionX*1+9*direction+25*iconPosition, margin+positionY*1-30*screenRatio-vOffset*directionV*screenRatio, 15, 15);
+			iconPosition = iconPosition + 1;
+			}
+
 		}else{}
 	}
 

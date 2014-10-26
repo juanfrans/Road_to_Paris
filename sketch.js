@@ -6,7 +6,7 @@ var positionY;
 var ellipseSize = 2;
 var startX = 20;
 var dateColumn = 5;
-var mapWidth, mapHeight, titleStartX, titleStartY;
+var mapWidth, mapHeight, titleStartX, titleStartY, titleWidth, legendWidth;
 var direction, directionV, characters, characters2;
 var vOffset = 22;
 var screenRatio = 1;
@@ -79,6 +79,8 @@ function draw(){
 	mapHeight = mapWidth/img.width*img.height;
 	titleStartY = mapHeight-70;
 	titleStartX = margin+10;
+	titleWidth = 380;
+	legendWidth = 500;
 
 	//Temp Border
 	noFill();
@@ -98,7 +100,7 @@ function draw(){
 				positionX = positionX - mapWidth;
 			}
 			//console.log(i+" "+margin+" "+img.width+" "+mapWidth+" "+positionX+" "+events.getColumn(3)[i]);
-			positionY = map(events.getColumn(2)[i], 90, -90, 0, mapHeight);
+			positionY = map(events.getColumn(2)[i], 90, -65, 0, mapHeight);
 			direction = events.getColumn(16)[i];
 			directionV = events.getColumn(17)[i];
 			characters = events.getColumn(0)[i].length;
@@ -113,7 +115,7 @@ function draw(){
 				//rect(margin+positionX*1+5*direction, margin+positionY*1-34*screenRatio-vOffset*directionV*screenRatio, characters*5.5*direction*screenRatio, characters2/characters*10.5*screenRatio);
 			}
 			//Title box
-			rect(margin+positionX*1+5*direction*screenRatio, margin+positionY*1-45*screenRatio-vOffset*directionV*screenRatio, characters*5.5*direction*screenRatio, 9*screenRatio);
+			rect(margin+positionX*1+5*direction*screenRatio, margin+positionY*1-45*screenRatio-vOffset*directionV*screenRatio, characters*5.2*direction*screenRatio, 9*screenRatio);
 			//Marker
 			fill(35, 100, 100);
 			ellipseMode(CENTER);
@@ -124,7 +126,7 @@ function draw(){
 			//Vertical Line
 			line(margin+positionX*1, margin+positionY*1-5*screenRatio, margin+positionX*1, margin+positionY*1-35*screenRatio-vOffset*directionV*screenRatio);
 			//Horizontal Line
-			line(margin+positionX*1, margin+positionY*1-35*screenRatio-vOffset*directionV*screenRatio, margin+positionX*1+characters*direction*5.7*screenRatio, margin+positionY*1-35*screenRatio-vOffset*directionV*screenRatio);
+			line(margin+positionX*1, margin+positionY*1-35*screenRatio-vOffset*directionV*screenRatio, margin+positionX*1+characters*direction*5.4*screenRatio, margin+positionY*1-35*screenRatio-vOffset*directionV*screenRatio);
 
 			noStroke();
 			fill(0);
@@ -147,37 +149,70 @@ function draw(){
 			ellipseMode(CORNER);
 			noStroke();
 			fill(35, 100, 100, 65);
-			if(events.getColumn(10)[i] > 0){
-			ellipse(margin+positionX*1+7*direction+10*iconPosition, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20, 20);
-			image(imgTemperature, margin+positionX*1+9*direction+10*iconPosition, margin+positionY*1-30*screenRatio-vOffset*directionV*screenRatio, 15, 15);
-			iconPosition = iconPosition + 1;
+			if(direction > 0){
+				if(events.getColumn(10)[i] > 0){
+				ellipse(margin+positionX*1+7*direction+10*iconPosition, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20, 20);
+				image(imgTemperature, margin+positionX*1+9*direction+10*iconPosition, margin+positionY*1-30*screenRatio-vOffset*directionV*screenRatio, 15, 15);
+				iconPosition = iconPosition + 1;
+				}
+				if(events.getColumn(11)[i] > 0){
+				ellipse(margin+positionX*1+7*direction+25*iconPosition, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20, 20);
+				image(imgPrecipitation, margin+positionX*1+7*direction+25*iconPosition, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20, 20);
+				iconPosition = iconPosition + 1;
+				}
+				if(events.getColumn(12)[i] > 0){
+				ellipse(margin+positionX*1+7*direction+10*iconPosition, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20, 20);
+				image(imgPlant, margin+positionX*1+9*direction+10*iconPosition, margin+positionY*1-30*screenRatio-vOffset*directionV*screenRatio, 15, 15);
+				iconPosition = iconPosition + 1;
+				}
+				if(events.getColumn(14)[i] > 0){
+				ellipse(margin+positionX*1+7*direction+10*iconPosition, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20, 20);
+				image(imgAnimal, margin+positionX*1+9*direction+10*iconPosition, margin+positionY*1-30*screenRatio-vOffset*directionV*screenRatio, 15, 15);
+				iconPosition = iconPosition + 1;
+				}
+				if(events.getColumn(13)[i] > 0){
+				ellipse(margin+positionX*1+7*direction+25*iconPosition, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20, 20);
+				image(imgOcean, margin+positionX*1+7*direction+25*iconPosition, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20, 20);
+				iconPosition = iconPosition + 1;
+				}
+				if(events.getColumn(15)[i] > 0){
+				ellipse(margin+positionX*1+7*direction+25*iconPosition, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20, 20);
+				image(imgSociety, margin+positionX*1+9*direction+25*iconPosition, margin+positionY*1-30*screenRatio-vOffset*directionV*screenRatio, 15, 15);
+				iconPosition = iconPosition + 1;
+				}
 			}
-			if(events.getColumn(11)[i] > 0){
-			ellipse(margin+positionX*1+7*direction+25*iconPosition, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20, 20);
-			image(imgPrecipitation, margin+positionX*1+7*direction+25*iconPosition, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20, 20);
-			iconPosition = iconPosition + 1;
+			if(direction < 0){
+				if(events.getColumn(10)[i] > 0){
+				ellipse(margin+positionX*1+25*direction+10*iconPosition*(-1), margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20, 20);
+				image(imgTemperature, margin+positionX*1+23*direction+10*iconPosition*(-1), margin+positionY*1-30*screenRatio-vOffset*directionV*screenRatio, 15, 15);
+				iconPosition = iconPosition + 1;
+				}
+				if(events.getColumn(11)[i] > 0){
+				ellipse(margin+positionX*1+25*direction+25*iconPosition*(-1), margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20, 20);
+				image(imgPrecipitation, margin+positionX*1+25*direction+25*iconPosition*(-1), margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20, 20);
+				iconPosition = iconPosition + 1;
+				}
+				if(events.getColumn(12)[i] > 0){
+				ellipse(margin+positionX*1+25*direction+25*iconPosition*(-1), margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20, 20);
+				image(imgPlant, margin+positionX*1+22*direction+25*iconPosition*(-1), margin+positionY*1-30*screenRatio-vOffset*directionV*screenRatio, 15, 15);
+				iconPosition = iconPosition + 1;
+				}
+				if(events.getColumn(14)[i] > 0){
+				ellipse(margin+positionX*1+25*direction+25*iconPosition*(-1), margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20, 20);
+				image(imgAnimal, margin+positionX*1+23*direction+25*iconPosition*(-1), margin+positionY*1-30*screenRatio-vOffset*directionV*screenRatio, 15, 15);
+				iconPosition = iconPosition + 1;
+				}
+				if(events.getColumn(15)[i] > 0){
+				ellipse(margin+positionX*1+25*direction+25*iconPosition*(-1), margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20, 20);
+				image(imgOcean, margin+positionX*1+25*direction+25*iconPosition*(-1), margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20, 20);
+				iconPosition = iconPosition + 1;
+				}
+				if(events.getColumn(13)[i] > 0){
+				ellipse(margin+positionX*1+25*direction+25*iconPosition*(-1), margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20, 20);
+				image(imgSociety, margin+positionX*1+22*direction+25*iconPosition*(-1), margin+positionY*1-30*screenRatio-vOffset*directionV*screenRatio, 15, 15);
+				iconPosition = iconPosition + 1;
+				}
 			}
-			if(events.getColumn(12)[i] > 0){
-			ellipse(margin+positionX*1+7*direction+10*iconPosition, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20, 20);
-			image(imgPlant, margin+positionX*1+9*direction+10*iconPosition, margin+positionY*1-30*screenRatio-vOffset*directionV*screenRatio, 15, 15);
-			iconPosition = iconPosition + 1;
-			}
-			if(events.getColumn(14)[i] > 0){
-			ellipse(margin+positionX*1+7*direction+10*iconPosition, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20, 20);
-			image(imgAnimal, margin+positionX*1+9*direction+10*iconPosition, margin+positionY*1-30*screenRatio-vOffset*directionV*screenRatio, 15, 15);
-			iconPosition = iconPosition + 1;
-			}
-			if(events.getColumn(13)[i] > 0){
-			ellipse(margin+positionX*1+7*direction+25*iconPosition, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20, 20);
-			image(imgOcean, margin+positionX*1+7*direction+25*iconPosition, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20, 20);
-			iconPosition = iconPosition + 1;
-			}
-			if(events.getColumn(15)[i] > 0){
-			ellipse(margin+positionX*1+7*direction+25*iconPosition, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20, 20);
-			image(imgSociety, margin+positionX*1+9*direction+25*iconPosition, margin+positionY*1-30*screenRatio-vOffset*directionV*screenRatio, 15, 15);
-			iconPosition = iconPosition + 1;
-			}
-
 		}else{}
 	}
 
@@ -195,41 +230,49 @@ function draw(){
 	noStroke();
 	textSize(12);
 	textLeading(14);
-	text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin feugiat massa id blandit accumsan. Fusce id nulla luctus, imperdiet orci at, luctus libero. Praesent id felis ac lectus condimentum auctor. Cras ac odio et nisl ultrices mollis eu quis mauris. Mauris tempus semper nunc, nec eleifend magna. Morbi ac justo.", titleStartX, titleStartY+2, 380, 400);
+	text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin feugiat massa id blandit accumsan. Fusce id nulla luctus, imperdiet orci at, luctus libero. Praesent id felis ac lectus condimentum auctor. Cras ac odio et nisl ultrices mollis eu quis mauris. Mauris tempus semper nunc, nec eleifend magna. Morbi ac justo.", titleStartX, titleStartY+2, titleWidth, 400);
 
 	//Toggle Icons
 	//stroke(80);
 	strokeWeight(.25);
 	for(var i=0; i<5; i++){
-		fill(35, 100, 100);
+		fill(35, 100, 100, 60);
 		//fill(160, 21, 80, 75);
-		rect(titleStartX+i*(320/5), titleStartY+90, 320/5-2, 20, 50);
+		rect(titleStartX+i*(legendWidth/5)+titleWidth, titleStartY+7, legendWidth/5-2, 20);
 	}
 	//noStroke();
 	fill(0);
 	textSize(8);
+	textStyle(BOLD);
 	textAlign(CENTER);
-	text("All Events", titleStartX+320/10-1, titleStartY+87);
-	text("Pre 1970", titleStartX+320/10*3-1, titleStartY+87);
-	text("1970-1990", titleStartX+320/10*5-1, titleStartY+87);
-	text("1990-2000", titleStartX+320/10*7-1, titleStartY+87);
-	text("2000-Present", titleStartX+320/10*9-1, titleStartY+87);
+	text("All Events", titleStartX+legendWidth/10-1+titleWidth, titleStartY+20);
+	text("Pre 1970", titleStartX+legendWidth/10*3-1+titleWidth, titleStartY+20);
+	text("1970-1990", titleStartX+legendWidth/10*5-1+titleWidth, titleStartY+20);
+	text("1990-2000", titleStartX+legendWidth/10*7-1+titleWidth, titleStartY+20);
+	text("2000-Present", titleStartX+legendWidth/10*9-1+titleWidth, titleStartY+20);
 	//stroke(80);
 	strokeWeight(.25);
 	for (var i = 0; i < 6; i++) {
-		fill(160, 21, 80, 75);
-		rect(titleStartX+i*(320/6), titleStartY+110, 320/6-2, 20);
+		fill(35, 100, 100, 60);
+		rect(titleStartX+i*(legendWidth/6)+titleWidth, titleStartY+30, legendWidth/6-2, 20);
 	};
 	//noStroke();
 	fill(0);
 	textSize(8);
 	textAlign(CENTER);
-	text("Temperature", titleStartX+320/12-1, titleStartY+112);
-	text("Precipitation", titleStartX+320/12*3-1, titleStartY+112);
-	text("Plants", titleStartX+320/12*5-1, titleStartY+112);
-	text("Ocean", titleStartX+320/12*7-1, titleStartY+112);
-	text("Animals", titleStartX+320/12*9-1, titleStartY+112);
-	text("Economy", titleStartX+320/12*11-1, titleStartY+112);
+	text("Temperature", titleStartX+legendWidth/12-1+titleWidth, titleStartY+42);
+	text("Precipitation", titleStartX+legendWidth/12*3-1+titleWidth, titleStartY+42);
+	text("Plants", titleStartX+legendWidth/12*5-1+titleWidth, titleStartY+42);
+	text("Ocean", titleStartX+legendWidth/12*7-1+titleWidth, titleStartY+42);
+	text("Animals", titleStartX+legendWidth/12*9-1+titleWidth, titleStartY+42);
+	text("Society", titleStartX+legendWidth/12*11-1+titleWidth, titleStartY+42);
+	image(imgTemperature, titleStartX+legendWidth/6*0+titleWidth+3, titleStartY+32, 15, 15);
+	image(imgPrecipitation, titleStartX+legendWidth/6*1+titleWidth+1, titleStartY+32, 15, 15);
+	image(imgPlant, titleStartX+legendWidth/6*2+titleWidth+5, titleStartY+32, 15, 15);
+	image(imgOcean, titleStartX+legendWidth/6*3+titleWidth+3, titleStartY+28, 25, 25);
+	image(imgAnimal, titleStartX+legendWidth/6*4+titleWidth+5, titleStartY+32, 15, 15);
+	image(imgSociety, titleStartX+legendWidth/6*5+titleWidth+5, titleStartY+32, 15, 15);
+
 }
 
 function windowResized() {

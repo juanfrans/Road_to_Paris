@@ -79,12 +79,15 @@ function draw(){
 							textAlign(LEFT);
 							text(events.getColumn(1)[i], margin+positionX*1+7*direction*screenRatio, margin+positionY*1-10*screenRatio-vOffset*directionV*screenRatio, characters*1.65*screenRatio, 100);
 						}
-						if(direction<0){
+						else if(direction<0){
 							textAlign(RIGHT);
 							text(events.getColumn(1)[i], margin+positionX*1+7*direction*screenRatio, margin+positionY*1-10*screenRatio-vOffset*directionV*screenRatio, characters*1.38*screenRatio, 100);
 						}
+						else{}
 					}
+					else{}
 				}
+				else{}
 
 				//Title box
 				noStroke();
@@ -125,70 +128,74 @@ function draw(){
 					image(imgTemperature, margin+positionX*1+9*direction+10*iconPosition*screenRatio, margin+positionY*1-30*screenRatio-vOffset*directionV*screenRatio, 15*screenRatio, 15*screenRatio);
 					iconPosition = iconPosition + 1;
 					}
-					if(events.getColumn(11)[i] > 0){
+					else if(events.getColumn(11)[i] > 0){
 					ellipse(margin+positionX*1+7*direction+25*iconPosition*screenRatio, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20*screenRatio, 20*screenRatio);
 					image(imgPrecipitation, margin+positionX*1+7*direction+25*iconPosition*screenRatio, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20*screenRatio, 20*screenRatio);
 					iconPosition = iconPosition + 1;
 					}
-					if(events.getColumn(12)[i] > 0){
+					else if(events.getColumn(12)[i] > 0){
 					ellipse(margin+positionX*1+7*direction+10*iconPosition*screenRatio, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20*screenRatio, 20*screenRatio);
 					image(imgPlant, margin+positionX*1+9*direction+10*iconPosition*screenRatio, margin+positionY*1-30*screenRatio-vOffset*directionV*screenRatio, 15*screenRatio, 15*screenRatio);
 					iconPosition = iconPosition + 1;
 					}
-					if(events.getColumn(14)[i] > 0){
+					else if(events.getColumn(14)[i] > 0){
 					ellipse(margin+positionX*1+7*direction+10*iconPosition*screenRatio, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20*screenRatio, 20*screenRatio);
 					image(imgAnimal, margin+positionX*1+10*direction+10*iconPosition*screenRatio, margin+positionY*1-29*screenRatio-vOffset*directionV*screenRatio, 13*screenRatio, 13*screenRatio);
 					iconPosition = iconPosition + 1;
 					}
-					if(events.getColumn(13)[i] > 0){
+					else if(events.getColumn(13)[i] > 0){
 					ellipse(margin+positionX*1+7*direction+25*iconPosition*screenRatio, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20*screenRatio, 20*screenRatio);
 					image(imgOcean, margin+positionX*1+7*direction+25*iconPosition*screenRatio, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20*screenRatio, 20*screenRatio);
 					iconPosition = iconPosition + 1;
 					}
-					if(events.getColumn(15)[i] > 0){
+					else if(events.getColumn(15)[i] > 0){
 					ellipse(margin+positionX*1+7*direction+25*iconPosition*screenRatio, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20*screenRatio, 20*screenRatio);
 					image(imgSociety, margin+positionX*1+9*direction+25*iconPosition*screenRatio, margin+positionY*1-30*screenRatio-vOffset*directionV*screenRatio, 15*screenRatio, 15*screenRatio);
 					iconPosition = iconPosition + 1;
 					}
+					else{}
 				}
-				if(direction < 0){
+				else if(direction < 0){
 					if(events.getColumn(10)[i] > 0){
 					ellipse(margin+positionX*1+25*direction+10*iconPosition*(-1)*screenRatio, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20*screenRatio, 20*screenRatio);
 					image(imgTemperature, margin+positionX*1+23*direction+10*iconPosition*(-1)*screenRatio, margin+positionY*1-30*screenRatio-vOffset*directionV*screenRatio, 15*screenRatio, 15*screenRatio);
 					iconPosition = iconPosition + 1;
 					}
-					if(events.getColumn(11)[i] > 0){
+					else if(events.getColumn(11)[i] > 0){
 					ellipse(margin+positionX*1+25*direction+25*iconPosition*(-1)*screenRatio, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20*screenRatio, 20*screenRatio);
 					image(imgPrecipitation, margin+positionX*1+25*direction+25*iconPosition*(-1)*screenRatio, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20*screenRatio, 20*screenRatio);
 					iconPosition = iconPosition + 1;
 					}
-					if(events.getColumn(12)[i] > 0){
+					else if(events.getColumn(12)[i] > 0){
 					ellipse(margin+positionX*1+25*direction+25*iconPosition*(-1)*screenRatio, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20*screenRatio, 20*screenRatio);
 					image(imgPlant, margin+positionX*1+22*direction+25*iconPosition*(-1)*screenRatio, margin+positionY*1-30*screenRatio-vOffset*directionV*screenRatio, 15*screenRatio, 15*screenRatio);
 					iconPosition = iconPosition + 1;
 					}
-					if(events.getColumn(14)[i] > 0){
+					else if(events.getColumn(14)[i] > 0){
 					ellipse(margin+positionX*1+25*direction+25*iconPosition*(-1)*screenRatio, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20*screenRatio, 20*screenRatio);
 					image(imgAnimal, margin+positionX*1+22*direction+25*iconPosition*(-1)*screenRatio, margin+positionY*1-29*screenRatio-vOffset*directionV*screenRatio, 13*screenRatio, 13*screenRatio);
 					iconPosition = iconPosition + 1;
 					}
-					if(events.getColumn(15)[i] > 0){
+					else if(events.getColumn(15)[i] > 0){
 					ellipse(margin+positionX*1+25*direction+25*iconPosition*(-1)*screenRatio, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20*screenRatio, 20*screenRatio);
 					image(imgOcean, margin+positionX*1+25*direction+25*iconPosition*(-1)*screenRatio, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20*screenRatio, 20*screenRatio);
 					iconPosition = iconPosition + 1;
 					}
-					if(events.getColumn(13)[i] > 0){
+					else if(events.getColumn(13)[i] > 0){
 					ellipse(margin+positionX*1+25*direction+25*iconPosition*(-1)*screenRatio, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20*screenRatio, 20*screenRatio);
 					image(imgSociety, margin+positionX*1+22*direction+25*iconPosition*(-1)*screenRatio, margin+positionY*1-30*screenRatio-vOffset*directionV*screenRatio, 15*screenRatio, 15*screenRatio);
 					iconPosition = iconPosition + 1;
 					}
+					else{}
 				}
+				else{}
 			}else{}
 		}else{}
 	}
 
 	//Title
 	textStyle(BOLD);
+	textAlign(LEFT);
 	fill(0);
 	noStroke();
 	var titleText = "EL NIÑO - A GLOBAL PHENOMENON";
@@ -259,7 +266,6 @@ function draw(){
 	image(imgOcean, legendStartX+legendWidth/6*3+3, legendStartY+27*screenRatio, 25*screenRatio, 25*screenRatio);
 	image(imgAnimal, legendStartX+legendWidth/6*4+5, legendStartY+30*screenRatio, 15*screenRatio, 15*screenRatio);
 	image(imgSociety, legendStartX+legendWidth/6*5+5, legendStartY+30*screenRatio, 15*screenRatio, 15*screenRatio);
-
 }
 
 function windowResized() {

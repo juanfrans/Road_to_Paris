@@ -16,7 +16,7 @@ var iconPosition = 0;
 
 //Preload images and data
 function preload(){
-	img = loadImage("data/World_Projected_WGS1984_Short-02.png");
+	img = loadImage("data/World_Projected_WGS1984_Short-02-01.png");
 	imgPrecipitation = loadImage("data/icon_precipitation/icon_precipitation.svg");
 	imgTemperature = loadImage("data/icon_temperature/icon_temperature.svg");
 	imgPlant = loadImage("data/icon_plant/icon_plant.svg");

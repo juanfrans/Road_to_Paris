@@ -13,6 +13,7 @@ var vOffset = 22;
 var screenRatio = 1;
 var imgPrecipitation, imgTemperature, imgOcean, imgAnimal, imgSociety, imgPlant;
 var iconPosition = 0;
+var dateText = "";
 
 //Preload images and data
 function preload(){
@@ -63,8 +64,9 @@ function draw(){
 				positionY = map(events.getColumn(2)[i], 90, -65, 0, mapHeight);
 				direction = events.getColumn(16)[i];
 				directionV = events.getColumn(17)[i];
-				characters = textWidth(events.getColumn(0)[i]);
 				characters2 = textWidth(events.getColumn(1)[i]);
+				dateText = " ("+events.getColumn(4)[i]+")";
+				characters = textWidth(events.getColumn(0)[i]);
 
 				//Explanation box
 				if(mouseX > margin+positionX-5 && mouseX < margin+positionX+5 && mouseY > margin+positionY-5 && mouseY < margin+positionY+5){
@@ -77,11 +79,11 @@ function draw(){
 						textLeading(10*screenRatio);
 						if(direction>0){
 							textAlign(LEFT);
-							text(events.getColumn(1)[i], margin+positionX*1+7*direction*screenRatio, margin+positionY*1-10*screenRatio-vOffset*directionV*screenRatio, characters*1.65*screenRatio, 100);
+							text(events.getColumn(1)[i]+dateText, margin+positionX*1+7*direction*screenRatio, margin+positionY*1-14*screenRatio-vOffset*directionV*screenRatio, characters*1.75*screenRatio, 100);
 						}
 						else if(direction<0){
 							textAlign(RIGHT);
-							text(events.getColumn(1)[i], margin+positionX*1+7*direction*screenRatio, margin+positionY*1-10*screenRatio-vOffset*directionV*screenRatio, characters*1.38*screenRatio, 100);
+							text(events.getColumn(1)[i]+dateText, margin+positionX*1+7*direction*screenRatio, margin+positionY*1-14*screenRatio-vOffset*directionV*screenRatio, characters*1.38*screenRatio, 100);
 						}
 						else{}
 					}

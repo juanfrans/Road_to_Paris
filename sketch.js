@@ -6,6 +6,7 @@ var positionY;
 var ellipseSize = 2;
 var startX = 20;
 var dateColumn = 5;
+var tagColumn = 5;
 var mapWidth, mapHeight, titleStartX, titleStartY, titleWidth, legendWidth;
 var direction, directionV, characters, characters2;
 var vOffset = 22;
@@ -95,126 +96,144 @@ function draw(){
 	for (var i = events.getRowCount() - 1; i >= 1; i--) {
 		iconPosition = 0;
 		if(events.getColumn(dateColumn)[i] > 0){
-			positionX = map(events.getColumn(3)[i], -180, 180, mapWidth*.5, mapWidth*1.5);
-			if(positionX>mapWidth){
-				positionX = positionX - mapWidth;
-			}
-			//console.log(i+" "+margin+" "+img.width+" "+mapWidth+" "+positionX+" "+events.getColumn(3)[i]);
-			positionY = map(events.getColumn(2)[i], 90, -65, 0, mapHeight);
-			direction = events.getColumn(16)[i];
-			directionV = events.getColumn(17)[i];
-			characters = events.getColumn(0)[i].length;
-			characters2 = events.getColumn(1)[i].length;
+			if(events.getColumn(tagColumn)[i] > 0){
+				positionX = map(events.getColumn(3)[i], -180, 180, mapWidth*.5, mapWidth*1.5);
+				if(positionX>mapWidth){
+					positionX = positionX - mapWidth;
+				}
+				//console.log(i+" "+margin+" "+img.width+" "+mapWidth+" "+positionX+" "+events.getColumn(3)[i]);
+				positionY = map(events.getColumn(2)[i], 90, -65, 0, mapHeight);
+				direction = events.getColumn(16)[i];
+				directionV = events.getColumn(17)[i];
+				characters = events.getColumn(0)[i].length;
+				characters2 = events.getColumn(1)[i].length;
 
 
-			//console.log(direction);
-			noStroke();
-			fill(100, 60);
-			//Explanation box
-			if (screenRatio > 0.8){
-				//rect(margin+positionX*1+5*direction, margin+positionY*1-34*screenRatio-vOffset*directionV*screenRatio, characters*5.5*direction*screenRatio, characters2/characters*10.5*screenRatio);
-			}
-			//Title box
-			rect(margin+positionX*1+5*direction*screenRatio, margin+positionY*1-45*screenRatio-vOffset*directionV*screenRatio, characters*5.2*direction*screenRatio, 9*screenRatio);
-			//Marker
-			fill(35, 100, 100);
-			ellipseMode(CENTER);
-			ellipse(margin+positionX, margin+positionY, 8*screenRatio, 8*screenRatio);
-			//Marker lines
-			stroke(35,100,100);
-			strokeWeight(.75);
-			//Vertical Line
-			line(margin+positionX*1, margin+positionY*1-5*screenRatio, margin+positionX*1, margin+positionY*1-35*screenRatio-vOffset*directionV*screenRatio);
-			//Horizontal Line
-			line(margin+positionX*1, margin+positionY*1-35*screenRatio-vOffset*directionV*screenRatio, margin+positionX*1+characters*direction*5.4*screenRatio, margin+positionY*1-35*screenRatio-vOffset*directionV*screenRatio);
+				//console.log(direction);
+				noStroke();
+				fill(100, 60);
+				//Explanation box
+				if (screenRatio > 0.8){
+					//rect(margin+positionX*1+5*direction, margin+positionY*1-34*screenRatio-vOffset*directionV*screenRatio, characters*5.5*direction*screenRatio, characters2/characters*10.5*screenRatio);
+				}
+				//Title box
+				rect(margin+positionX*1+5*direction*screenRatio, margin+positionY*1-45*screenRatio-vOffset*directionV*screenRatio, characters*5.2*direction*screenRatio, 9*screenRatio);
+				//Marker
+				fill(35, 100, 100);
+				ellipseMode(CENTER);
+				ellipse(margin+positionX, margin+positionY, 8*screenRatio, 8*screenRatio);
+				//Marker lines
+				stroke(35,100,100);
+				strokeWeight(.75);
+				//Vertical Line
+				line(margin+positionX*1, margin+positionY*1-5*screenRatio, margin+positionX*1, margin+positionY*1-35*screenRatio-vOffset*directionV*screenRatio);
+				//Horizontal Line
+				line(margin+positionX*1, margin+positionY*1-35*screenRatio-vOffset*directionV*screenRatio, margin+positionX*1+characters*direction*5.4*screenRatio, margin+positionY*1-35*screenRatio-vOffset*directionV*screenRatio);
 
-			noStroke();
-			fill(0);
-			textStyle(BOLD);
-			textSize(8*screenRatio);
-			if(direction>0){
-				textAlign(LEFT);
-			}
-			else{
-				textAlign(RIGHT);
-			}
-			text(events.getColumn(0)[i], margin+positionX*1+7*direction, margin+positionY*1-38*screenRatio-vOffset*directionV*screenRatio);
-			//Explanation text
-			if (screenRatio > 0.8){
-			textLeading(10);
-			//text(events.getColumn(1)[i], margin+positionX*1+7*direction*screenRatio, margin+positionY*1-35*screenRatio-vOffset*directionV*screenRatio, characters*5.25, 100);
-			}
-			
-			//Add Icon
-			ellipseMode(CORNER);
-			noStroke();
-			fill(35, 100, 100, 65);
-			if(direction > 0){
-				if(events.getColumn(10)[i] > 0){
-				ellipse(margin+positionX*1+7*direction+10*iconPosition, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20, 20);
-				image(imgTemperature, margin+positionX*1+9*direction+10*iconPosition, margin+positionY*1-30*screenRatio-vOffset*directionV*screenRatio, 15, 15);
-				iconPosition = iconPosition + 1;
+				noStroke();
+				fill(0);
+				textStyle(BOLD);
+				textSize(8*screenRatio);
+				if(direction>0){
+					textAlign(LEFT);
 				}
-				if(events.getColumn(11)[i] > 0){
-				ellipse(margin+positionX*1+7*direction+25*iconPosition, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20, 20);
-				image(imgPrecipitation, margin+positionX*1+7*direction+25*iconPosition, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20, 20);
-				iconPosition = iconPosition + 1;
+				else{
+					textAlign(RIGHT);
 				}
-				if(events.getColumn(12)[i] > 0){
-				ellipse(margin+positionX*1+7*direction+10*iconPosition, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20, 20);
-				image(imgPlant, margin+positionX*1+9*direction+10*iconPosition, margin+positionY*1-30*screenRatio-vOffset*directionV*screenRatio, 15, 15);
-				iconPosition = iconPosition + 1;
+				text(events.getColumn(0)[i], margin+positionX*1+7*direction, margin+positionY*1-38*screenRatio-vOffset*directionV*screenRatio);
+				//Explanation text
+				if (screenRatio > 0.8){
+				textLeading(10);
+				//text(events.getColumn(1)[i], margin+positionX*1+7*direction*screenRatio, margin+positionY*1-35*screenRatio-vOffset*directionV*screenRatio, characters*5.25, 100);
 				}
-				if(events.getColumn(14)[i] > 0){
-				ellipse(margin+positionX*1+7*direction+10*iconPosition, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20, 20);
-				image(imgAnimal, margin+positionX*1+9*direction+10*iconPosition, margin+positionY*1-30*screenRatio-vOffset*directionV*screenRatio, 15, 15);
-				iconPosition = iconPosition + 1;
+				
+				//Add Icon
+				ellipseMode(CORNER);
+				noStroke();
+				fill(35, 100, 100, 65);
+				if(direction > 0){
+					if(events.getColumn(10)[i] > 0){
+					ellipse(margin+positionX*1+7*direction+10*iconPosition, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20, 20);
+					image(imgTemperature, margin+positionX*1+9*direction+10*iconPosition, margin+positionY*1-30*screenRatio-vOffset*directionV*screenRatio, 15, 15);
+					iconPosition = iconPosition + 1;
+					}
+					if(events.getColumn(11)[i] > 0){
+					ellipse(margin+positionX*1+7*direction+25*iconPosition, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20, 20);
+					image(imgPrecipitation, margin+positionX*1+7*direction+25*iconPosition, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20, 20);
+					iconPosition = iconPosition + 1;
+					}
+					if(events.getColumn(12)[i] > 0){
+					ellipse(margin+positionX*1+7*direction+10*iconPosition, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20, 20);
+					image(imgPlant, margin+positionX*1+9*direction+10*iconPosition, margin+positionY*1-30*screenRatio-vOffset*directionV*screenRatio, 15, 15);
+					iconPosition = iconPosition + 1;
+					}
+					if(events.getColumn(14)[i] > 0){
+					ellipse(margin+positionX*1+7*direction+10*iconPosition, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20, 20);
+					image(imgAnimal, margin+positionX*1+10*direction+10*iconPosition, margin+positionY*1-29*screenRatio-vOffset*directionV*screenRatio, 13, 13);
+					iconPosition = iconPosition + 1;
+					}
+					if(events.getColumn(13)[i] > 0){
+					ellipse(margin+positionX*1+7*direction+25*iconPosition, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20, 20);
+					image(imgOcean, margin+positionX*1+7*direction+25*iconPosition, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20, 20);
+					iconPosition = iconPosition + 1;
+					}
+					if(events.getColumn(15)[i] > 0){
+					ellipse(margin+positionX*1+7*direction+25*iconPosition, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20, 20);
+					image(imgSociety, margin+positionX*1+9*direction+25*iconPosition, margin+positionY*1-30*screenRatio-vOffset*directionV*screenRatio, 15, 15);
+					iconPosition = iconPosition + 1;
+					}
 				}
-				if(events.getColumn(13)[i] > 0){
-				ellipse(margin+positionX*1+7*direction+25*iconPosition, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20, 20);
-				image(imgOcean, margin+positionX*1+7*direction+25*iconPosition, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20, 20);
-				iconPosition = iconPosition + 1;
+				if(direction < 0){
+					if(events.getColumn(10)[i] > 0){
+					ellipse(margin+positionX*1+25*direction+10*iconPosition*(-1), margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20, 20);
+					image(imgTemperature, margin+positionX*1+23*direction+10*iconPosition*(-1), margin+positionY*1-30*screenRatio-vOffset*directionV*screenRatio, 15, 15);
+					iconPosition = iconPosition + 1;
+					}
+					if(events.getColumn(11)[i] > 0){
+					ellipse(margin+positionX*1+25*direction+25*iconPosition*(-1), margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20, 20);
+					image(imgPrecipitation, margin+positionX*1+25*direction+25*iconPosition*(-1), margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20, 20);
+					iconPosition = iconPosition + 1;
+					}
+					if(events.getColumn(12)[i] > 0){
+					ellipse(margin+positionX*1+25*direction+25*iconPosition*(-1), margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20, 20);
+					image(imgPlant, margin+positionX*1+22*direction+25*iconPosition*(-1), margin+positionY*1-30*screenRatio-vOffset*directionV*screenRatio, 15, 15);
+					iconPosition = iconPosition + 1;
+					}
+					if(events.getColumn(14)[i] > 0){
+					ellipse(margin+positionX*1+25*direction+25*iconPosition*(-1), margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20, 20);
+					image(imgAnimal, margin+positionX*1+22*direction+25*iconPosition*(-1), margin+positionY*1-29*screenRatio-vOffset*directionV*screenRatio, 13, 13);
+					iconPosition = iconPosition + 1;
+					}
+					if(events.getColumn(15)[i] > 0){
+					ellipse(margin+positionX*1+25*direction+25*iconPosition*(-1), margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20, 20);
+					image(imgOcean, margin+positionX*1+25*direction+25*iconPosition*(-1), margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20, 20);
+					iconPosition = iconPosition + 1;
+					}
+					if(events.getColumn(13)[i] > 0){
+					ellipse(margin+positionX*1+25*direction+25*iconPosition*(-1), margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20, 20);
+					image(imgSociety, margin+positionX*1+22*direction+25*iconPosition*(-1), margin+positionY*1-30*screenRatio-vOffset*directionV*screenRatio, 15, 15);
+					iconPosition = iconPosition + 1;
+					}
 				}
-				if(events.getColumn(15)[i] > 0){
-				ellipse(margin+positionX*1+7*direction+25*iconPosition, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20, 20);
-				image(imgSociety, margin+positionX*1+9*direction+25*iconPosition, margin+positionY*1-30*screenRatio-vOffset*directionV*screenRatio, 15, 15);
-				iconPosition = iconPosition + 1;
-				}
-			}
-			if(direction < 0){
-				if(events.getColumn(10)[i] > 0){
-				ellipse(margin+positionX*1+25*direction+10*iconPosition*(-1), margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20, 20);
-				image(imgTemperature, margin+positionX*1+23*direction+10*iconPosition*(-1), margin+positionY*1-30*screenRatio-vOffset*directionV*screenRatio, 15, 15);
-				iconPosition = iconPosition + 1;
-				}
-				if(events.getColumn(11)[i] > 0){
-				ellipse(margin+positionX*1+25*direction+25*iconPosition*(-1), margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20, 20);
-				image(imgPrecipitation, margin+positionX*1+25*direction+25*iconPosition*(-1), margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20, 20);
-				iconPosition = iconPosition + 1;
-				}
-				if(events.getColumn(12)[i] > 0){
-				ellipse(margin+positionX*1+25*direction+25*iconPosition*(-1), margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20, 20);
-				image(imgPlant, margin+positionX*1+22*direction+25*iconPosition*(-1), margin+positionY*1-30*screenRatio-vOffset*directionV*screenRatio, 15, 15);
-				iconPosition = iconPosition + 1;
-				}
-				if(events.getColumn(14)[i] > 0){
-				ellipse(margin+positionX*1+25*direction+25*iconPosition*(-1), margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20, 20);
-				image(imgAnimal, margin+positionX*1+23*direction+25*iconPosition*(-1), margin+positionY*1-30*screenRatio-vOffset*directionV*screenRatio, 15, 15);
-				iconPosition = iconPosition + 1;
-				}
-				if(events.getColumn(15)[i] > 0){
-				ellipse(margin+positionX*1+25*direction+25*iconPosition*(-1), margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20, 20);
-				image(imgOcean, margin+positionX*1+25*direction+25*iconPosition*(-1), margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20, 20);
-				iconPosition = iconPosition + 1;
-				}
-				if(events.getColumn(13)[i] > 0){
-				ellipse(margin+positionX*1+25*direction+25*iconPosition*(-1), margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20, 20);
-				image(imgSociety, margin+positionX*1+22*direction+25*iconPosition*(-1), margin+positionY*1-30*screenRatio-vOffset*directionV*screenRatio, 15, 15);
-				iconPosition = iconPosition + 1;
-				}
-			}
+			}else{}
 		}else{}
 	}
+
+	//Highlight rectangle
+	stroke(0);
+	strokeWeight(.25);
+	fill(35, 100, 100, 50);
+	if(tagColumn == 5 && dateColumn == 5){
+		rect(titleStartX+titleWidth, titleStartY+7, legendWidth/5-2, 20);
+		//console.log(tagColumn);
+	}
+	if(dateColumn>5){
+		rect(titleStartX+((5-dateColumn)*(-1))*(legendWidth/5)+titleWidth, titleStartY+7, legendWidth/5-2, 20);
+	}
+	if(tagColumn>5){
+		rect(titleStartX+((10-tagColumn)*(-1))*(legendWidth/6)+titleWidth, titleStartY+30, legendWidth/6-2, 20);
+	}
+	noStroke();
 
 	//Title
 	textStyle(BOLD);
@@ -237,7 +256,6 @@ function draw(){
 	strokeWeight(.25);
 	for(var i=0; i<5; i++){
 		fill(35, 100, 100, 60);
-		//fill(160, 21, 80, 75);
 		rect(titleStartX+i*(legendWidth/5)+titleWidth, titleStartY+7, legendWidth/5-2, 20);
 	}
 	//noStroke();
@@ -250,13 +268,11 @@ function draw(){
 	text("1970-1990", titleStartX+legendWidth/10*5-1+titleWidth, titleStartY+20);
 	text("1990-2000", titleStartX+legendWidth/10*7-1+titleWidth, titleStartY+20);
 	text("2000-Present", titleStartX+legendWidth/10*9-1+titleWidth, titleStartY+20);
-	//stroke(80);
 	strokeWeight(.25);
 	for (var i = 0; i < 6; i++) {
 		fill(35, 100, 100, 60);
 		rect(titleStartX+i*(legendWidth/6)+titleWidth, titleStartY+30, legendWidth/6-2, 20);
 	};
-	//noStroke();
 	fill(0);
 	textSize(8);
 	textAlign(CENTER);
@@ -281,48 +297,58 @@ function windowResized() {
 }
 
 function mousePressed(){
-	if (mouseX > titleStartX && mouseX < titleStartX+320/5-2 && mouseY > titleStartY+75 && mouseY < titleStartY+95){
+		//rect(titleStartX+i*(legendWidth/5)+titleWidth, titleStartY+7, legendWidth/5-2, 20);
+
+	//Date actions
+	if (mouseX > titleStartX+0*(legendWidth/5)+titleWidth && mouseX < titleStartX+0*(legendWidth/5)+titleWidth+legendWidth/5-2 && mouseY > titleStartY+7 && mouseY < titleStartY+7+20){
 		dateColumn = 5;
-		console.log(date);
+		tagColumn = 5;
+		//console.log(dateColumn);
 	}
-	if (mouseX > titleStartX+320/5 && mouseX < titleStartX+320/5*2-2 && mouseY > titleStartY+75 && mouseY < titleStartY+95){
+	if (mouseX > titleStartX+1*(legendWidth/5)+titleWidth && mouseX < titleStartX+1*(legendWidth/5)+titleWidth+legendWidth/5-2 && mouseY > titleStartY+7 && mouseY < titleStartY+7+20){
 		dateColumn = 6;
-		console.log(date);
+		//console.log(dateColumn);
 	}
-	if (mouseX > titleStartX+320/5*2 && mouseX < titleStartX+320/5*3-2 && mouseY > titleStartY+75 && mouseY < titleStartY+95){
+	if (mouseX > titleStartX+2*(legendWidth/5)+titleWidth && mouseX < titleStartX+2*(legendWidth/5)+titleWidth+legendWidth/5-2 && mouseY > titleStartY+7 && mouseY < titleStartY+7+20){
 		dateColumn = 7;
-		console.log(date);
+		//console.log(dateColumn);
 	}
-	if (mouseX > titleStartX+320/5*3 && mouseX < titleStartX+320/5*4-2 && mouseY > titleStartY+75 && mouseY < titleStartY+95){
+	if (mouseX > titleStartX+3*(legendWidth/5)+titleWidth && mouseX < titleStartX+3*(legendWidth/5)+titleWidth+legendWidth/5-2 && mouseY > titleStartY+7 && mouseY < titleStartY+7+20){
 		dateColumn = 8;
-		console.log(date);
+		//console.log(dateColumn);
 	}
-	if (mouseX > titleStartX+320/5*4 && mouseX < titleStartX+320/5*5-2 && mouseY > titleStartY+75 && mouseY < titleStartY+95){
+	if (mouseX > titleStartX+4*(legendWidth/5)+titleWidth && mouseX < titleStartX+4*(legendWidth/5)+titleWidth+legendWidth/5-2 && mouseY > titleStartY+7 && mouseY < titleStartY+7+20){
 		dateColumn = 9;
-		console.log(date);
+		//console.log(dateColumn);
 	}
-	if (mouseX > titleStartX && mouseX < titleStartX+320/5-2 && mouseY > titleStartY+75 && mouseY < titleStartY+95){
-		date = 50;
-		console.log(date);
+
+	//Tag actions
+	if (mouseX > titleStartX+0*(legendWidth/6)+titleWidth && mouseX < titleStartX+0*(legendWidth/6)+titleWidth+legendWidth/6-2 && mouseY > titleStartY+30 && mouseY < titleStartY+30+20){
+		tagColumn = 10;
+		console.log(tagColumn);
 	}
-	if (mouseX > titleStartX+320/5 && mouseX < titleStartX+320/5*2-2 && mouseY > titleStartY+75 && mouseY < titleStartY+95){
-		date = 1900;
-		console.log(date);
+	if (mouseX > titleStartX+1*(legendWidth/6)+titleWidth && mouseX < titleStartX+1*(legendWidth/6)+titleWidth+legendWidth/6-2 && mouseY > titleStartY+30 && mouseY < titleStartY+30+20){
+		tagColumn = 11;
+		console.log(tagColumn);
 	}
-	if (mouseX > titleStartX+320/5*2 && mouseX < titleStartX+320/5*3-2 && mouseY > titleStartY+75 && mouseY < titleStartY+95){
-		date = 70;
-		console.log(date);
+	if (mouseX > titleStartX+2*(legendWidth/6)+titleWidth && mouseX < titleStartX+2*(legendWidth/6)+titleWidth+legendWidth/6-2 && mouseY > titleStartY+30 && mouseY < titleStartY+30+20){
+		tagColumn = 12;
+		console.log(tagColumn);
 	}
-	if (mouseX > titleStartX+320/5*3 && mouseX < titleStartX+320/5*4-2 && mouseY > titleStartY+75 && mouseY < titleStartY+95){
-		date = 90;
-		console.log(date);
+	if (mouseX > titleStartX+3*(legendWidth/6)+titleWidth && mouseX < titleStartX+3*(legendWidth/6)+titleWidth+legendWidth/6-2 && mouseY > titleStartY+30 && mouseY < titleStartY+30+20){
+		tagColumn = 13;
+		console.log(tagColumn);
 	}
-	if (mouseX > titleStartX+320/5*4 && mouseX < titleStartX+320/5*5-2 && mouseY > titleStartY+75 && mouseY < titleStartY+95){
-		date = 20;
-		console.log(date);
+	if (mouseX > titleStartX+4*(legendWidth/6)+titleWidth && mouseX < titleStartX+4*(legendWidth/6)+titleWidth+legendWidth/6-2 && mouseY > titleStartY+30 && mouseY < titleStartY+30+20){
+		tagColumn = 14;
+		console.log(tagColumn);
 	}
-	if (mouseX > 500){
-		console.log("Pressed");
-		window.location.href = 'www.juanfrans.com';
+	if (mouseX > titleStartX+5*(legendWidth/6)+titleWidth && mouseX < titleStartX+5*(legendWidth/6)+titleWidth+legendWidth/6-2 && mouseY > titleStartY+30 && mouseY < titleStartY+30+20){
+		tagColumn = 15;
+		console.log(tagColumn);
 	}
+	//if (mouseX > 500){
+		//console.log("Pressed");
+		//window.location.href = 'www.juanfrans.com';
+	//}
 }

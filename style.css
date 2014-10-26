@@ -14,14 +14,3 @@ head{
 	font-size: 14px;
 	line-height: 10%;
 }
-
-
-/* unvisited link */
-a:link {
-    color: #FFFFFF;
-}
-
-/* visited link */
-a:visited {
-    color: #D4D4D4;
-}

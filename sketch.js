@@ -30,51 +30,12 @@ function setup() {
 	var canvasWidth = 1280;
 	var canvasHeight = 720;
 	textFont("Proxima Nova");
-	//createCanvas(canvasWidth, canvasHeight);
-	if (windowWidth < 1280 && windowWidth > 1024){
-		//canvasWidth = 1024;
-		//screenRatio = 0.8;
-	}
-	else if(windowWidth < 1024 && windowWidth > 800){
-		//canvasWidth = 800;
-		//screenRatio = .7;
-	}
-	else if(windowWidth < 800){
-		//canvasWidth = 640;
-		//screenRatio = .5;
-	}
-	else{
-		//canvasWidth = 1280;
-		//screenRatio = 1;
-	}
 	createCanvas(windowWidth, windowHeight);
 	colorMode(HSB, 360, 100, 100, 100);
-	//background(100);
-	//mapWidth = windowWidth-margin*2;
-	//mapHeight = mapWidth/img.width*img.height;
-	//titleStartY = mapHeight-170;
-	//titleStartX = margin+10;
 }
 
 function draw(){
-	if (windowWidth < 1280 && windowWidth > 1024){
-		//canvasWidth = 1024;
-		screenRatio = 0.8;
-	}
-	else if(windowWidth < 1024 && windowWidth > 800){
-		//canvasWidth = 800;
-		screenRatio = .7;
-	}
-	else if(windowWidth < 800){
-		//canvasWidth = 640;
-		screenRatio = .5;
-	}
-	else{
-		//canvasWidth = 1280;
-		screenRatio = 1;
-	}
 	screenRatio = windowWidth/1440;
-	//console.log(screenRatio);
 	background(20);
 	margin = 10*screenRatio;
 	mapWidth = windowWidth-margin*6;
@@ -85,6 +46,7 @@ function draw(){
 	legendWidth = 500*screenRatio;
 	legendStartX = titleStartX+titleWidth+25*screenRatio;
 	legendStartY = mapHeight-45*screenRatio;
+	text("test, test", 2000, 2000);
 
 	//Load map image
 	image(img, margin, margin, mapWidth, mapHeight);
@@ -101,8 +63,6 @@ function draw(){
 				positionY = map(events.getColumn(2)[i], 90, -65, 0, mapHeight);
 				direction = events.getColumn(16)[i];
 				directionV = events.getColumn(17)[i];
-				//characters = events.getColumn(0)[i].length;
-				//characters2 = events.getColumn(1)[i].length;
 				characters = textWidth(events.getColumn(0)[i]);
 				characters2 = textWidth(events.getColumn(1)[i]);
 
@@ -110,19 +70,18 @@ function draw(){
 				if(mouseX > margin+positionX-5 && mouseX < margin+positionX+5 && mouseY > margin+positionY-5 && mouseY < margin+positionY+5){
 					noStroke();
 					fill(100, 75);
-					if (screenRatio > 0.5){
-						//rect(margin+positionX*1+5*direction, margin+positionY*1-8*screenRatio-vOffset*directionV*screenRatio, characters*5.2*direction*screenRatio, characters2/characters*10.5*screenRatio);
+					if (windowWidth >= 1024){
 						fill(100);
 						textSize(9*screenRatio);
 						textStyle(BOLD);
 						textLeading(10*screenRatio);
 						if(direction>0){
 							textAlign(LEFT);
-							text(events.getColumn(1)[i], margin+positionX*1+7*direction*screenRatio, margin+positionY*1-10*screenRatio-vOffset*directionV*screenRatio, 125*screenRatio, 100);
+							text(events.getColumn(1)[i], margin+positionX*1+7*direction*screenRatio, margin+positionY*1-10*screenRatio-vOffset*directionV*screenRatio, characters*1.65*screenRatio, 100);
 						}
 						if(direction<0){
 							textAlign(RIGHT);
-							text(events.getColumn(1)[i], margin+positionX*1+7*direction*screenRatio, margin+positionY*1-10*screenRatio-vOffset*directionV*screenRatio, 125*screenRatio, 100);
+							text(events.getColumn(1)[i], margin+positionX*1+7*direction*screenRatio, margin+positionY*1-10*screenRatio-vOffset*directionV*screenRatio, characters*1.38*screenRatio, 100);
 						}
 					}
 				}
@@ -130,18 +89,20 @@ function draw(){
 				//Title box
 				noStroke();
 				fill(100, 75);
-				//rect(margin+positionX*1+5*direction*screenRatio, margin+positionY*1-45*screenRatio-vOffset*directionV*screenRatio, characters*5.2*direction*screenRatio, 9*screenRatio);
 				//Marker
 				fill(35, 100, 100);
 				ellipseMode(CENTER);
 				ellipse(margin+positionX, margin+positionY, 8*screenRatio, 8*screenRatio);
+
 				//Marker lines
 				stroke(35,100,100);
 				strokeWeight(.75);
 				//Vertical Line
 				line(margin+positionX*1, margin+positionY*1-5*screenRatio, margin+positionX*1, margin+positionY*1-35*screenRatio-vOffset*directionV*screenRatio);
 				//Horizontal Line
-				line(margin+positionX*1, margin+positionY*1-35*screenRatio-vOffset*directionV*screenRatio, margin+positionX*1+characters*direction+10*screenRatio*direction, margin+positionY*1-35*screenRatio-vOffset*directionV*screenRatio);
+				line(margin+positionX*1, margin+positionY*1-35*screenRatio-vOffset*directionV*screenRatio, margin+positionX+(characters+10*screenRatio)*direction, margin+positionY*1-35*screenRatio-vOffset*directionV*screenRatio);
+
+				//Event title
 				noStroke();
 				fill(100);
 				textStyle(BOLD);
@@ -232,10 +193,10 @@ function draw(){
 	noStroke();
 	var titleText = "EL NIÑO - A GLOBAL PHENOMENON";
 	var textDistance = 0;
-	for (var i = 0; i < titleText.length; i++) {
+	for (var k = 0; k < titleText.length; k++) {
 		textSize(22*screenRatio);
-		text(titleText.charAt(i), titleStartX+textDistance, titleStartY);
-		textDistance = textDistance + map(textWidth(titleText.charAt(i)), 0, textWidth(titleText), 0, titleWidth);
+		text(titleText.charAt(k), titleStartX+textDistance, titleStartY);
+		textDistance = textDistance + map(textWidth(titleText.charAt(k)), 0, textWidth(titleText), 0, titleWidth);
 	};
 	stroke(0);
 	strokeWeight(.5);
@@ -265,7 +226,6 @@ function draw(){
 	strokeWeight(.25);
 	noFill();
 	for(var i=0; i<5; i++){
-		//fill(35, 100, 100, 60);
 		rect(legendStartX+i*(legendWidth/5), legendStartY, legendWidth/5-2, 20*screenRatio);
 	}
 	noStroke();
@@ -281,7 +241,6 @@ function draw(){
 	noFill();
 	stroke(0);
 	for (var i = 0; i < 6; i++) {
-		//fill(35, 100, 100, 60);
 		rect(legendStartX+i*(legendWidth/6), legendStartY+27*screenRatio, legendWidth/6-2, 20*screenRatio);
 	};
 	noStroke();
@@ -312,52 +271,37 @@ function mousePressed(){
 	if (mouseX > legendStartX+0*(legendWidth/5) && mouseX < legendStartX+0*(legendWidth/5)+legendWidth/5-2 && mouseY > legendStartY && mouseY < legendStartY+20*screenRatio){
 		dateColumn = 5;
 		tagColumn = 5;
-		//console.log(dateColumn);
 	}
 	if (mouseX > legendStartX+1*(legendWidth/5) && mouseX < legendStartX+1*(legendWidth/5)+legendWidth/5-2 && mouseY > legendStartY && mouseY < legendStartY+20*screenRatio){
 		dateColumn = 6;
-		//console.log(dateColumn);
 	}
 	if (mouseX > legendStartX+2*(legendWidth/5) && mouseX < legendStartX+2*(legendWidth/5)+legendWidth/5-2 && mouseY > legendStartY && mouseY < legendStartY+20*screenRatio){
 		dateColumn = 7;
-		//console.log(dateColumn);
 	}
 	if (mouseX > legendStartX+3*(legendWidth/5) && mouseX < legendStartX+3*(legendWidth/5)+legendWidth/5-2 && mouseY > legendStartY && mouseY < legendStartY+20*screenRatio){
 		dateColumn = 8;
-		//console.log(dateColumn);
 	}
 	if (mouseX > legendStartX+4*(legendWidth/5) && mouseX < legendStartX+4*(legendWidth/5)+legendWidth/5-2 && mouseY > legendStartY && mouseY < legendStartY+20*screenRatio){
 		dateColumn = 9;
-		//console.log(dateColumn);
 	}
 
 	//Tag actions
 	if (mouseX > legendStartX+0*(legendWidth/6) && mouseX < legendStartX+0*(legendWidth/6)+legendWidth/6-2 && mouseY > legendStartY+27*screenRatio && mouseY < legendStartY+27*screenRatio+20*screenRatio){
 		tagColumn = 10;
-		console.log(tagColumn);
 	}
 	if (mouseX > legendStartX+1*(legendWidth/6) && mouseX < legendStartX+1*(legendWidth/6)+legendWidth/6-2 && mouseY > legendStartY+27*screenRatio && mouseY < legendStartY+27*screenRatio+20*screenRatio){
 		tagColumn = 11;
-		console.log(tagColumn);
 	}
 	if (mouseX > legendStartX+2*(legendWidth/6) && mouseX < legendStartX+2*(legendWidth/6)+legendWidth/6-2 && mouseY > legendStartY+27*screenRatio && mouseY < legendStartY+27*screenRatio+20*screenRatio){
 		tagColumn = 12;
-		console.log(tagColumn);
 	}
 	if (mouseX > legendStartX+3*(legendWidth/6) && mouseX < legendStartX+3*(legendWidth/6)+legendWidth/6-2 && mouseY > legendStartY+27*screenRatio && mouseY < legendStartY+27*screenRatio+20*screenRatio){
 		tagColumn = 13;
-		console.log(tagColumn);
 	}
 	if (mouseX > legendStartX+4*(legendWidth/6) && mouseX < legendStartX+4*(legendWidth/6)+legendWidth/6-2 && mouseY > legendStartY+27*screenRatio && mouseY < legendStartY+27*screenRatio+20*screenRatio){
 		tagColumn = 14;
-		console.log(tagColumn);
 	}
 	if (mouseX > legendStartX+5*(legendWidth/6) && mouseX < legendStartX+5*(legendWidth/6)+legendWidth/6-2 && mouseY > legendStartY+27*screenRatio && mouseY < legendStartY+27*screenRatio+20*screenRatio){
 		tagColumn = 15;
-		console.log(tagColumn);
 	}
-	//if (mouseX > 500){
-		//console.log("Pressed");
-		//window.location.href = 'www.juanfrans.com';
-	//}
 }

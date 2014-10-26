@@ -16,7 +16,7 @@ var iconPosition = 0;
 //Preload images and data
 function preload(){
 	//img = loadImage("data/World_Projected_Black.png");
-	img = loadImage("data/World_Projected_WGS1984-02.png");
+	img = loadImage("data/World_Projected_WGS1984_Short-02.png");
 	imgPrecipitation = loadImage("data/icon_precipitation/icon_precipitation.svg");
 	imgTemperature = loadImage("data/icon_temperature/icon_temperature.svg");
 	imgPlant = loadImage("data/icon_plant/icon_plant.svg");
@@ -30,6 +30,7 @@ function preload(){
 function setup() {
 	var canvasWidth = 1280;
 	var canvasHeight = 720;
+	textFont("Proxima Nova");
 	//createCanvas(canvasWidth, canvasHeight);
 	if (windowWidth < 1280 && windowWidth > 1024){
 		//canvasWidth = 1024;
@@ -50,10 +51,10 @@ function setup() {
 	createCanvas(windowWidth, windowHeight);
 	colorMode(HSB, 360, 100, 100, 100);
 	background(100);
-	mapWidth = windowWidth-margin*2;
-	mapHeight = mapWidth/img.width*img.height;
-	titleStartY = mapHeight-150;
-	titleStartX = margin+10;
+	//mapWidth = windowWidth-margin*2;
+	//mapHeight = mapWidth/img.width*img.height;
+	//titleStartY = mapHeight-170;
+	//titleStartX = margin+10;
 }
 
 function draw(){
@@ -76,9 +77,8 @@ function draw(){
 	background(100);
 	mapWidth = windowWidth-margin*2;
 	mapHeight = mapWidth/img.width*img.height;
-	titleStartY = mapHeight-150;
+	titleStartY = mapHeight-70;
 	titleStartX = margin+10;
-	//screenRatio = 
 
 	//Temp Border
 	noFill();
@@ -128,6 +128,7 @@ function draw(){
 
 			noStroke();
 			fill(0);
+			textStyle(BOLD);
 			textSize(8*screenRatio);
 			if(direction>0){
 				textAlign(LEFT);
@@ -181,24 +182,28 @@ function draw(){
 	}
 
 	//Title
-	textSize(18);
+	textStyle(BOLD);
+	//fill(35, 100, 100);
 	fill(0);
+	textSize(22);
 	noStroke();
 	text("EL NIÑO - A GLOBAL PHENOMENON", titleStartX, titleStartY);
 	stroke(0);
 	strokeWeight(.5);
-	line(titleStartX, titleStartY+5, titleStartX+320, titleStartY+5);
+	//line(titleStartX, titleStartY+5, titleStartX+450, titleStartY+5);
+	textStyle(NORMAL);
 	noStroke();
 	textSize(12);
 	textLeading(14);
-	text("Here goes a more detailed explanation of what the map is showing. It will give a brief history of the phenomenon and will provide instructions as to how to use the map, credits, etc, etc...", titleStartX, titleStartY+5, 300, 400);
+	text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin feugiat massa id blandit accumsan. Fusce id nulla luctus, imperdiet orci at, luctus libero. Praesent id felis ac lectus condimentum auctor. Cras ac odio et nisl ultrices mollis eu quis mauris. Mauris tempus semper nunc, nec eleifend magna. Morbi ac justo.", titleStartX, titleStartY+2, 380, 400);
 
 	//Toggle Icons
 	//stroke(80);
 	strokeWeight(.25);
 	for(var i=0; i<5; i++){
-		fill(160, 21, 80, 75);
-		rect(titleStartX+i*(320/5), titleStartY+75, 320/5-2, 20, 50);
+		fill(35, 100, 100);
+		//fill(160, 21, 80, 75);
+		rect(titleStartX+i*(320/5), titleStartY+90, 320/5-2, 20, 50);
 	}
 	//noStroke();
 	fill(0);
@@ -213,7 +218,7 @@ function draw(){
 	strokeWeight(.25);
 	for (var i = 0; i < 6; i++) {
 		fill(160, 21, 80, 75);
-		rect(titleStartX+i*(320/6), titleStartY+100, 320/6-2, 20);
+		rect(titleStartX+i*(320/6), titleStartY+110, 320/6-2, 20);
 	};
 	//noStroke();
 	fill(0);

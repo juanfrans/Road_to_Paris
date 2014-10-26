@@ -30,7 +30,7 @@ function preload(){
 function setup() {
 	var canvasWidth = 1280;
 	var canvasHeight = 720;
-	textFont("Proxima Nova");
+	textFont("Montserrat");
 	createCanvas(windowWidth, windowHeight);
 	colorMode(HSB, 360, 100, 100, 100);
 }
@@ -43,10 +43,10 @@ function draw(){
 	mapHeight = mapWidth/img.width*img.height;
 	titleStartY = mapHeight-75*screenRatio;
 	titleStartX = margin+10;
-	titleWidth = 400*screenRatio;
-	legendWidth = 500*screenRatio;
+	titleWidth = 425*screenRatio;
+	legendWidth = 615*screenRatio;
 	legendStartX = titleStartX+titleWidth+25*screenRatio;
-	legendStartY = mapHeight-45*screenRatio;
+	legendStartY = mapHeight-55*screenRatio;
 	text("test, test", 2000, 2000);
 
 	//Load map image
@@ -69,21 +69,35 @@ function draw(){
 				characters = textWidth(events.getColumn(0)[i]);
 
 				//Explanation box
-				if(mouseX > margin+positionX-5 && mouseX < margin+positionX+5 && mouseY > margin+positionY-5 && mouseY < margin+positionY+5){
-					noStroke();
-					fill(100, 75);
-					if (windowWidth >= 1024){
-						fill(100);
-						textSize(9*screenRatio);
-						textStyle(BOLD);
-						textLeading(10*screenRatio);
-						if(direction>0){
+				//if(mouseX > margin+positionX-5 && mouseX < margin+positionX+5 && mouseY > margin+positionY-5 && mouseY < margin+positionY+5){
+				textLeading(6*screenRatio);
+				if(direction>0){
+					if(mouseX > margin+positionX && mouseX < margin+positionX+characters+10*screenRatio && mouseY > margin+positionY-45*screenRatio-vOffset*directionV*screenRatio && mouseY < margin+positionY-5*screenRatio-vOffset*directionV*screenRatio){
+						noStroke();
+						fill(100, 75);
+						if (windowWidth >= 1024){
+							fill(100);
+							textSize(9*screenRatio);
+							textStyle(BOLD);
+							textLeading(10*screenRatio);
 							textAlign(LEFT);
-							text(events.getColumn(1)[i]+dateText, margin+positionX*1+7*direction*screenRatio, margin+positionY*1-14*screenRatio-vOffset*directionV*screenRatio, characters*1.75*screenRatio, 100);
+							text(events.getColumn(1)[i]+dateText, margin+positionX*1+7*direction*screenRatio, margin+positionY*1-14*screenRatio-vOffset*directionV*screenRatio, characters*1.2, 100);
 						}
-						else if(direction<0){
+						else{}
+					}
+					else{}
+				}
+				else if (direction<0){
+					if(mouseX < margin+positionX && mouseX > margin+positionX+characters*direction+10*direction*screenRatio && mouseY > margin+positionY-45*screenRatio-vOffset*directionV*screenRatio && mouseY < margin+positionY-5*screenRatio-vOffset*directionV*screenRatio){
+						noStroke();
+						fill(100, 75);
+						if (windowWidth >= 1024){
+							fill(100);
+							textSize(9*screenRatio);
+							textStyle(BOLD);
+							textLeading(10*screenRatio);
 							textAlign(RIGHT);
-							text(events.getColumn(1)[i]+dateText, margin+positionX*1+7*direction*screenRatio, margin+positionY*1-14*screenRatio-vOffset*directionV*screenRatio, characters*1.38*screenRatio, 100);
+							text(events.getColumn(1)[i]+dateText, margin+positionX*1+7*direction*screenRatio, margin+positionY*1-14*screenRatio-vOffset*directionV*screenRatio, characters*1.05, 100);
 						}
 						else{}
 					}
@@ -111,7 +125,7 @@ function draw(){
 				noStroke();
 				fill(100);
 				textStyle(BOLD);
-				textSize(8*screenRatio);
+				textSize(9.5*screenRatio);
 				if(direction>0){
 					textAlign(LEFT);
 				}
@@ -211,7 +225,7 @@ function draw(){
 	strokeWeight(.5);
 	textStyle(NORMAL);
 	noStroke();
-	textSize(10*screenRatio);
+	textSize(9*screenRatio);
 	textLeading(12*screenRatio);
 	text("For years, the El Niño Southern Oscillation (ENSO) was understood as a regional phenomenon that mainly affected ocean temperatures and precipitation. But in recent decades, scientists have discovered diverse and far-reaching effects of ENSO on everything from mudslides in Africa to the military history of Europe. El Niño causes many of Earth's most drastic variations in weather, temperature, and rainfall--and its worldwide consequences illustrate how deeply interconnected our planet's climate really is.", titleStartX, titleStartY+2*screenRatio, titleWidth, 400);
 
@@ -220,13 +234,13 @@ function draw(){
 	strokeWeight(.25);
 	fill(100, 35);
 	if(tagColumn == 5 && dateColumn == 5){
-		rect(legendStartX, legendStartY, legendWidth/5-2, 20*screenRatio);
+		rect(legendStartX, legendStartY, legendWidth/5-2, 25*screenRatio);
 	}
 	if(dateColumn>5){
-		rect(legendStartX+((5-dateColumn)*(-1))*(legendWidth/5), legendStartY, legendWidth/5-2, 20*screenRatio);
+		rect(legendStartX+((5-dateColumn)*(-1))*(legendWidth/5), legendStartY, legendWidth/5-2, 25*screenRatio);
 	}
 	if(tagColumn>5){
-		rect(legendStartX+((10-tagColumn)*(-1))*(legendWidth/6), legendStartY+27*screenRatio, legendWidth/6-2, 20*screenRatio);
+		rect(legendStartX+((10-tagColumn)*(-1))*(legendWidth/6), legendStartY+30*screenRatio, legendWidth/6-2, 25*screenRatio);
 	}
 	noStroke();
 
@@ -235,39 +249,39 @@ function draw(){
 	strokeWeight(.25);
 	noFill();
 	for(var i=0; i<5; i++){
-		rect(legendStartX+i*(legendWidth/5), legendStartY, legendWidth/5-2, 20*screenRatio);
+		rect(legendStartX+i*(legendWidth/5), legendStartY, legendWidth/5-2, 25*screenRatio);
 	}
 	noStroke();
 	fill(0);
-	textSize(8*screenRatio);
+	textSize(10*screenRatio);
 	textStyle(BOLD);
 	textAlign(CENTER);
-	text("All Events", legendStartX+legendWidth/10-1, legendStartY+13*screenRatio);
-	text("Pre 1970", legendStartX+legendWidth/10*3-1, legendStartY+13*screenRatio);
-	text("1970-1990", legendStartX+legendWidth/10*5-1, legendStartY+13*screenRatio);
-	text("1990-2000", legendStartX+legendWidth/10*7-1, legendStartY+13*screenRatio);
-	text("2000-Present", legendStartX+legendWidth/10*9-1, legendStartY+13*screenRatio);
+	text("All Events", legendStartX+legendWidth/10-1, legendStartY+15*screenRatio);
+	text("Pre 1970", legendStartX+legendWidth/10*3-1, legendStartY+15*screenRatio);
+	text("1970-1990", legendStartX+legendWidth/10*5-1, legendStartY+15*screenRatio);
+	text("1990-2000", legendStartX+legendWidth/10*7-1, legendStartY+15*screenRatio);
+	text("2000-Present", legendStartX+legendWidth/10*9-1, legendStartY+15*screenRatio);
 	noFill();
 	stroke(0);
 	for (var i = 0; i < 6; i++) {
-		rect(legendStartX+i*(legendWidth/6), legendStartY+27*screenRatio, legendWidth/6-2, 20*screenRatio);
+		rect(legendStartX+i*(legendWidth/6), legendStartY+30*screenRatio, legendWidth/6-2, 25*screenRatio);
 	};
 	noStroke();
 	fill(0);
-	textSize(8*screenRatio);
+	textSize(10*screenRatio);
 	textAlign(CENTER);
-	text("Temperature", legendStartX+legendWidth/12-1, legendStartY+40*screenRatio);
-	text("Precipitation", legendStartX+legendWidth/12*3-1, legendStartY+40*screenRatio);
-	text("Plants", legendStartX+legendWidth/12*5-1, legendStartY+40*screenRatio);
-	text("Ocean", legendStartX+legendWidth/12*7-1, legendStartY+40*screenRatio);
-	text("Animals", legendStartX+legendWidth/12*9-1, legendStartY+40*screenRatio);
-	text("Society", legendStartX+legendWidth/12*11-1, legendStartY+40*screenRatio);
-	image(imgTemperature, legendStartX+legendWidth/6*0+3, legendStartY+30*screenRatio, 15*screenRatio, 15*screenRatio);
-	image(imgPrecipitation, legendStartX+legendWidth/6*1+1, legendStartY+30*screenRatio, 15*screenRatio, 15*screenRatio);
-	image(imgPlant, legendStartX+legendWidth/6*2+5, legendStartY+30*screenRatio, 15*screenRatio, 15*screenRatio);
-	image(imgOcean, legendStartX+legendWidth/6*3+3, legendStartY+27*screenRatio, 25*screenRatio, 25*screenRatio);
-	image(imgAnimal, legendStartX+legendWidth/6*4+5, legendStartY+30*screenRatio, 15*screenRatio, 15*screenRatio);
-	image(imgSociety, legendStartX+legendWidth/6*5+5, legendStartY+30*screenRatio, 15*screenRatio, 15*screenRatio);
+	text("Temperature", legendStartX+legendWidth/12-1, legendStartY+45*screenRatio);
+	text("Precipitation", legendStartX+legendWidth/12*3-1, legendStartY+45*screenRatio);
+	text("Plants", legendStartX+legendWidth/12*5-1, legendStartY+45*screenRatio);
+	text("Ocean", legendStartX+legendWidth/12*7-1, legendStartY+45*screenRatio);
+	text("Animals", legendStartX+legendWidth/12*9-1, legendStartY+45*screenRatio);
+	text("Society", legendStartX+legendWidth/12*11-1, legendStartY+45*screenRatio);
+	image(imgTemperature, legendStartX+legendWidth/6*0+3, legendStartY+35*screenRatio, 15*screenRatio, 15*screenRatio);
+	image(imgPrecipitation, legendStartX+legendWidth/6*1+1, legendStartY+35*screenRatio, 15*screenRatio, 15*screenRatio);
+	image(imgPlant, legendStartX+legendWidth/6*2+5, legendStartY+35*screenRatio, 15*screenRatio, 15*screenRatio);
+	image(imgOcean, legendStartX+legendWidth/6*3+3, legendStartY+32*screenRatio, 25*screenRatio, 25*screenRatio);
+	image(imgAnimal, legendStartX+legendWidth/6*4+5, legendStartY+35*screenRatio, 15*screenRatio, 15*screenRatio);
+	image(imgSociety, legendStartX+legendWidth/6*5+5, legendStartY+35*screenRatio, 15*screenRatio, 15*screenRatio);
 }
 
 function windowResized() {
@@ -276,40 +290,40 @@ function windowResized() {
 
 function mousePressed(){
 	//Date actions
-	if (mouseX > legendStartX+0*(legendWidth/5) && mouseX < legendStartX+0*(legendWidth/5)+legendWidth/5-2 && mouseY > legendStartY && mouseY < legendStartY+20*screenRatio){
+	if (mouseX > legendStartX+0*(legendWidth/5) && mouseX < legendStartX+0*(legendWidth/5)+legendWidth/5-2 && mouseY > legendStartY && mouseY < legendStartY+25*screenRatio){
 		dateColumn = 5;
 		tagColumn = 5;
 	}
-	if (mouseX > legendStartX+1*(legendWidth/5) && mouseX < legendStartX+1*(legendWidth/5)+legendWidth/5-2 && mouseY > legendStartY && mouseY < legendStartY+20*screenRatio){
+	if (mouseX > legendStartX+1*(legendWidth/5) && mouseX < legendStartX+1*(legendWidth/5)+legendWidth/5-2 && mouseY > legendStartY && mouseY < legendStartY+25*screenRatio){
 		dateColumn = 6;
 	}
-	if (mouseX > legendStartX+2*(legendWidth/5) && mouseX < legendStartX+2*(legendWidth/5)+legendWidth/5-2 && mouseY > legendStartY && mouseY < legendStartY+20*screenRatio){
+	if (mouseX > legendStartX+2*(legendWidth/5) && mouseX < legendStartX+2*(legendWidth/5)+legendWidth/5-2 && mouseY > legendStartY && mouseY < legendStartY+25*screenRatio){
 		dateColumn = 7;
 	}
-	if (mouseX > legendStartX+3*(legendWidth/5) && mouseX < legendStartX+3*(legendWidth/5)+legendWidth/5-2 && mouseY > legendStartY && mouseY < legendStartY+20*screenRatio){
+	if (mouseX > legendStartX+3*(legendWidth/5) && mouseX < legendStartX+3*(legendWidth/5)+legendWidth/5-2 && mouseY > legendStartY && mouseY < legendStartY+25*screenRatio){
 		dateColumn = 8;
 	}
-	if (mouseX > legendStartX+4*(legendWidth/5) && mouseX < legendStartX+4*(legendWidth/5)+legendWidth/5-2 && mouseY > legendStartY && mouseY < legendStartY+20*screenRatio){
+	if (mouseX > legendStartX+4*(legendWidth/5) && mouseX < legendStartX+4*(legendWidth/5)+legendWidth/5-2 && mouseY > legendStartY && mouseY < legendStartY+25*screenRatio){
 		dateColumn = 9;
 	}
 
 	//Tag actions
-	if (mouseX > legendStartX+0*(legendWidth/6) && mouseX < legendStartX+0*(legendWidth/6)+legendWidth/6-2 && mouseY > legendStartY+27*screenRatio && mouseY < legendStartY+27*screenRatio+20*screenRatio){
+	if (mouseX > legendStartX+0*(legendWidth/6) && mouseX < legendStartX+0*(legendWidth/6)+legendWidth/6-2 && mouseY > legendStartY+30*screenRatio && mouseY < legendStartY+30*screenRatio+25*screenRatio){
 		tagColumn = 10;
 	}
-	if (mouseX > legendStartX+1*(legendWidth/6) && mouseX < legendStartX+1*(legendWidth/6)+legendWidth/6-2 && mouseY > legendStartY+27*screenRatio && mouseY < legendStartY+27*screenRatio+20*screenRatio){
+	if (mouseX > legendStartX+1*(legendWidth/6) && mouseX < legendStartX+1*(legendWidth/6)+legendWidth/6-2 && mouseY > legendStartY+30*screenRatio && mouseY < legendStartY+30*screenRatio+25*screenRatio){
 		tagColumn = 11;
 	}
-	if (mouseX > legendStartX+2*(legendWidth/6) && mouseX < legendStartX+2*(legendWidth/6)+legendWidth/6-2 && mouseY > legendStartY+27*screenRatio && mouseY < legendStartY+27*screenRatio+20*screenRatio){
+	if (mouseX > legendStartX+2*(legendWidth/6) && mouseX < legendStartX+2*(legendWidth/6)+legendWidth/6-2 && mouseY > legendStartY+30*screenRatio && mouseY < legendStartY+30*screenRatio+25*screenRatio){
 		tagColumn = 12;
 	}
-	if (mouseX > legendStartX+3*(legendWidth/6) && mouseX < legendStartX+3*(legendWidth/6)+legendWidth/6-2 && mouseY > legendStartY+27*screenRatio && mouseY < legendStartY+27*screenRatio+20*screenRatio){
+	if (mouseX > legendStartX+3*(legendWidth/6) && mouseX < legendStartX+3*(legendWidth/6)+legendWidth/6-2 && mouseY > legendStartY+30*screenRatio && mouseY < legendStartY+30*screenRatio+25*screenRatio){
 		tagColumn = 13;
 	}
-	if (mouseX > legendStartX+4*(legendWidth/6) && mouseX < legendStartX+4*(legendWidth/6)+legendWidth/6-2 && mouseY > legendStartY+27*screenRatio && mouseY < legendStartY+27*screenRatio+20*screenRatio){
+	if (mouseX > legendStartX+4*(legendWidth/6) && mouseX < legendStartX+4*(legendWidth/6)+legendWidth/6-2 && mouseY > legendStartY+30*screenRatio && mouseY < legendStartY+30*screenRatio+25*screenRatio){
 		tagColumn = 14;
 	}
-	if (mouseX > legendStartX+5*(legendWidth/6) && mouseX < legendStartX+5*(legendWidth/6)+legendWidth/6-2 && mouseY > legendStartY+27*screenRatio && mouseY < legendStartY+27*screenRatio+20*screenRatio){
+	if (mouseX > legendStartX+5*(legendWidth/6) && mouseX < legendStartX+5*(legendWidth/6)+legendWidth/6-2 && mouseY > legendStartY+30*screenRatio && mouseY < legendStartY+30*screenRatio+25*screenRatio){
 		tagColumn = 15;
 	}
 }

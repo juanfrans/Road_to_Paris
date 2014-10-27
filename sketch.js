@@ -17,7 +17,7 @@ var dateText = "";
 
 //Preload images and data
 function preload(){
-	img = loadImage("data/World_Projected_WGS1984_Short-02-01.png");
+	img = loadImage("data/World_Projected_WGS1984_Short-03-01.png");
 	imgPrecipitation = loadImage("data/icon_precipitation/icon_precipitation.svg");
 	imgTemperature = loadImage("data/icon_temperature/icon_temperature.svg");
 	imgPlant = loadImage("data/icon_plant/icon_plant.svg");
@@ -28,7 +28,8 @@ function preload(){
 }
 
 function setup() {
-	var canvasWidth = 1280;
+	//var canvasWidth = 1280;
+	var canvasWidth = 1600;
 	var canvasHeight = 720;
 	textFont("Montserrat");
 	createCanvas(windowWidth, windowHeight);
@@ -325,5 +326,36 @@ function mousePressed(){
 	}
 	if (mouseX > legendStartX+5*(legendWidth/6) && mouseX < legendStartX+5*(legendWidth/6)+legendWidth/6-2 && mouseY > legendStartY+30*screenRatio && mouseY < legendStartY+30*screenRatio+25*screenRatio){
 		tagColumn = 15;
+	}
+
+	//Links
+	for (var i = events.getRowCount() - 1; i >= 1; i--) {
+		if(events.getColumn(dateColumn)[i] > 0){
+			if(events.getColumn(tagColumn)[i] > 0){
+				positionX = map(events.getColumn(3)[i], -180, 180, mapWidth*.5, mapWidth*1.5);
+				if(positionX>mapWidth){
+					positionX = positionX - mapWidth;
+				}
+				positionY = map(events.getColumn(2)[i], 90, -65, 0, mapHeight);
+				direction = events.getColumn(16)[i];
+				directionV = events.getColumn(17)[i];
+				characters = textWidth(events.getColumn(0)[i]);
+
+				//Explanation box
+				if(direction>0){
+					if(mouseX > margin+positionX && mouseX < margin+positionX+characters+10*screenRatio && mouseY > margin+positionY-45*screenRatio-vOffset*directionV*screenRatio && mouseY < margin+positionY-5*screenRatio-vOffset*directionV*screenRatio){
+						window.location.href = events.getColumn(18)[i];
+					}
+					else{}
+				}
+				else if (direction<0){
+					if(mouseX < margin+positionX && mouseX > margin+positionX+characters*direction+10*direction*screenRatio && mouseY > margin+positionY-45*screenRatio-vOffset*directionV*screenRatio && mouseY < margin+positionY-5*screenRatio-vOffset*directionV*screenRatio){
+						window.location.href = events.getColumn(18)[i];
+					}
+					else{}
+				}
+				else{}
+			}
+		}
 	}
 }

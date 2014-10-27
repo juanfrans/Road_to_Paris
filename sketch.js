@@ -344,13 +344,13 @@ function mousePressed(){
 				//Explanation box
 				if(direction>0){
 					if(mouseX > margin+positionX && mouseX < margin+positionX+characters+10*screenRatio && mouseY > margin+positionY-45*screenRatio-vOffset*directionV*screenRatio && mouseY < margin+positionY-5*screenRatio-vOffset*directionV*screenRatio){
-						window.location.href = events.getColumn(18)[i];
+						window.open(events.getColumn(18)[i]);
 					}
 					else{}
 				}
 				else if (direction<0){
 					if(mouseX < margin+positionX && mouseX > margin+positionX+characters*direction+10*direction*screenRatio && mouseY > margin+positionY-45*screenRatio-vOffset*directionV*screenRatio && mouseY < margin+positionY-5*screenRatio-vOffset*directionV*screenRatio){
-						window.location.href = events.getColumn(18)[i];
+						window.open(events.getColumn(18)[i]);
 					}
 					else{}
 				}

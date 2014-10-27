@@ -145,27 +145,27 @@ function draw(){
 					image(imgTemperature, margin+positionX*1+9*direction+10*iconPosition*screenRatio, margin+positionY*1-30*screenRatio-vOffset*directionV*screenRatio, 15*screenRatio, 15*screenRatio);
 					iconPosition = iconPosition + 1;
 					}
-					else if(events.getColumn(11)[i] > 0){
+					if(events.getColumn(11)[i] > 0){
 					ellipse(margin+positionX*1+7*direction+25*iconPosition*screenRatio, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20*screenRatio, 20*screenRatio);
 					image(imgPrecipitation, margin+positionX*1+7*direction+25*iconPosition*screenRatio, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20*screenRatio, 20*screenRatio);
 					iconPosition = iconPosition + 1;
 					}
-					else if(events.getColumn(12)[i] > 0){
+					if(events.getColumn(12)[i] > 0){
 					ellipse(margin+positionX*1+7*direction+10*iconPosition*screenRatio, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20*screenRatio, 20*screenRatio);
 					image(imgPlant, margin+positionX*1+9*direction+10*iconPosition*screenRatio, margin+positionY*1-30*screenRatio-vOffset*directionV*screenRatio, 15*screenRatio, 15*screenRatio);
 					iconPosition = iconPosition + 1;
 					}
-					else if(events.getColumn(14)[i] > 0){
+					if(events.getColumn(14)[i] > 0){
 					ellipse(margin+positionX*1+7*direction+10*iconPosition*screenRatio, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20*screenRatio, 20*screenRatio);
 					image(imgAnimal, margin+positionX*1+10*direction+10*iconPosition*screenRatio, margin+positionY*1-29*screenRatio-vOffset*directionV*screenRatio, 13*screenRatio, 13*screenRatio);
 					iconPosition = iconPosition + 1;
 					}
-					else if(events.getColumn(13)[i] > 0){
+					if(events.getColumn(13)[i] > 0){
 					ellipse(margin+positionX*1+7*direction+25*iconPosition*screenRatio, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20*screenRatio, 20*screenRatio);
 					image(imgOcean, margin+positionX*1+7*direction+25*iconPosition*screenRatio, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20*screenRatio, 20*screenRatio);
 					iconPosition = iconPosition + 1;
 					}
-					else if(events.getColumn(15)[i] > 0){
+					if(events.getColumn(15)[i] > 0){
 					ellipse(margin+positionX*1+7*direction+25*iconPosition*screenRatio, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20*screenRatio, 20*screenRatio);
 					image(imgSociety, margin+positionX*1+9*direction+25*iconPosition*screenRatio, margin+positionY*1-30*screenRatio-vOffset*directionV*screenRatio, 15*screenRatio, 15*screenRatio);
 					iconPosition = iconPosition + 1;
@@ -178,27 +178,27 @@ function draw(){
 					image(imgTemperature, margin+positionX*1+23*direction+10*iconPosition*(-1)*screenRatio, margin+positionY*1-30*screenRatio-vOffset*directionV*screenRatio, 15*screenRatio, 15*screenRatio);
 					iconPosition = iconPosition + 1;
 					}
-					else if(events.getColumn(11)[i] > 0){
+					if(events.getColumn(11)[i] > 0){
 					ellipse(margin+positionX*1+25*direction+25*iconPosition*(-1)*screenRatio, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20*screenRatio, 20*screenRatio);
 					image(imgPrecipitation, margin+positionX*1+25*direction+25*iconPosition*(-1)*screenRatio, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20*screenRatio, 20*screenRatio);
 					iconPosition = iconPosition + 1;
 					}
-					else if(events.getColumn(12)[i] > 0){
+					if(events.getColumn(12)[i] > 0){
 					ellipse(margin+positionX*1+25*direction+25*iconPosition*(-1)*screenRatio, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20*screenRatio, 20*screenRatio);
 					image(imgPlant, margin+positionX*1+22*direction+25*iconPosition*(-1)*screenRatio, margin+positionY*1-30*screenRatio-vOffset*directionV*screenRatio, 15*screenRatio, 15*screenRatio);
 					iconPosition = iconPosition + 1;
 					}
-					else if(events.getColumn(14)[i] > 0){
+					if(events.getColumn(14)[i] > 0){
 					ellipse(margin+positionX*1+25*direction+25*iconPosition*(-1)*screenRatio, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20*screenRatio, 20*screenRatio);
 					image(imgAnimal, margin+positionX*1+22*direction+25*iconPosition*(-1)*screenRatio, margin+positionY*1-29*screenRatio-vOffset*directionV*screenRatio, 13*screenRatio, 13*screenRatio);
 					iconPosition = iconPosition + 1;
 					}
-					else if(events.getColumn(15)[i] > 0){
+					if(events.getColumn(13)[i] > 0){
 					ellipse(margin+positionX*1+25*direction+25*iconPosition*(-1)*screenRatio, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20*screenRatio, 20*screenRatio);
 					image(imgOcean, margin+positionX*1+25*direction+25*iconPosition*(-1)*screenRatio, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20*screenRatio, 20*screenRatio);
 					iconPosition = iconPosition + 1;
 					}
-					else if(events.getColumn(13)[i] > 0){
+					if(events.getColumn(15)[i] > 0){
 					ellipse(margin+positionX*1+25*direction+25*iconPosition*(-1)*screenRatio, margin+positionY*1-32*screenRatio-vOffset*directionV*screenRatio, 20*screenRatio, 20*screenRatio);
 					image(imgSociety, margin+positionX*1+22*direction+25*iconPosition*(-1)*screenRatio, margin+positionY*1-30*screenRatio-vOffset*directionV*screenRatio, 15*screenRatio, 15*screenRatio);
 					iconPosition = iconPosition + 1;

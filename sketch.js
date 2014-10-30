@@ -13,6 +13,7 @@ var img, imgPrecipitation, imgTemperature, imgOcean, imgAnimal, imgSociety, imgP
 var iconPosition = 0;
 var dateText = "";
 var canvasWidth, canvasHeight;
+var canvas;
 
 //Preload images and data
 function preload(){
@@ -30,8 +31,9 @@ function setup() {
 	canvasWidth = windowWidth;
 	canvasHeight = windowHeight;
 	textFont("Montserrat");
-	//createCanvas(windowWidth, windowHeight);
-	createCanvas(canvasWidth*1.5, canvasHeight*1.5);
+	canvas = createCanvas(canvasWidth*1.5, canvasHeight*1.5);
+	canvas.parent('map');
+	canvas.position(0, 0);
 	colorMode(HSB, 360, 100, 100, 100);
 }
 
@@ -285,28 +287,42 @@ function draw(){
 	image(imgSociety, legendStartX+legendWidth/6*5+5, legendStartY+35*screenRatio, 15*screenRatio, 15*screenRatio);
 
 	//Zoom In & Zoom Out
+	// stroke(0);
+	// strokeWeight(.25);
+	// noFill();
+	// for(var i=0; i<2; i++){
+	// 	rect(mapWidth-i*(82*screenRatio), legendStartY+30*screenRatio, -80*screenRatio, 25*screenRatio);
+	// }
+
+	// noStroke();
+	// fill(0);
+	// textSize(10*screenRatio);
+	// textAlign(CENTER);
+	// text("Zoom In", mapWidth-82*screenRatio-40*screenRatio, legendStartY+45*screenRatio);
+	// text("Zoom Out", mapWidth-40*screenRatio, legendStartY+45*screenRatio);
+
 	stroke(0);
 	strokeWeight(.25);
-	noFill();
+	fill(193, 31, 67);
 	for(var i=0; i<2; i++){
-		rect(mapWidth-i*(82*screenRatio), legendStartY+30*screenRatio, -80*screenRatio, 25*screenRatio);
+		rect(20, 20+i*30, 80, 25);
 	}
 
 	noStroke();
 	fill(0);
-	textSize(10*screenRatio);
+	textSize(10);
 	textAlign(CENTER);
-	text("Zoom In", mapWidth-82*screenRatio-40*screenRatio, legendStartY+45*screenRatio);
-	text("Zoom Out", mapWidth-40*screenRatio, legendStartY+45*screenRatio);
+	text("Zoom In", 60, 35);
+	text("Zoom Out", 60, 65);
 }
 
 function mousePressed(){
 	//Zoom In & Out actions
-	if (mouseX > mapWidth-82*screenRatio-80*screenRatio && mouseX < mapWidth-82*screenRatio && mouseY > legendStartY+30*screenRatio && mouseY < legendStartY+30*screenRatio+25*screenRatio){
+	if (mouseX > 20 && mouseX < 100 && mouseY > 20 && mouseY < 45){
 		canvasWidth = windowWidth*1.5;
 		canvasHeight = windowHeight*1.5;
 	}
-	if (mouseX > mapWidth-80*screenRatio && mouseX < mapWidth && mouseY > legendStartY+30*screenRatio && mouseY < legendStartY+30*screenRatio+25*screenRatio){
+	if (mouseX > 20 && mouseX < 100 && mouseY > 50 && mouseY < 75){
 		canvasWidth = windowWidth;
 		canvasHeight = windowHeight;
 	}

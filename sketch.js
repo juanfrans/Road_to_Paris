@@ -291,6 +291,7 @@ function draw(){
 	for(var i=0; i<2; i++){
 		rect(mapWidth-i*(82*screenRatio), legendStartY+30*screenRatio, -80*screenRatio, 25*screenRatio);
 	}
+
 	noStroke();
 	fill(0);
 	textSize(10*screenRatio);
@@ -299,27 +300,17 @@ function draw(){
 	text("Zoom Out", mapWidth-40*screenRatio, legendStartY+45*screenRatio);
 }
 
-function windowResized() {
-  //resizeCanvas(windowWidth, windowHeight);
-}
-
-function keyPressed(){
-	if(keyCode === 90){
-		console.log("zoom in");
+function mousePressed(){
+	//Zoom In & Out actions
+	if (mouseX > mapWidth-82*screenRatio-80*screenRatio && mouseX < mapWidth-82*screenRatio && mouseY > legendStartY+30*screenRatio && mouseY < legendStartY+30*screenRatio+25*screenRatio){
 		canvasWidth = windowWidth*1.5;
 		canvasHeight = windowHeight*1.5;
-		//resizeCanvas(canvasWidth, canvasHeight);
 	}
-	else if(keyCode === 88){
-		console.log("zoom out");
+	if (mouseX > mapWidth-80*screenRatio && mouseX < mapWidth && mouseY > legendStartY+30*screenRatio && mouseY < legendStartY+30*screenRatio+25*screenRatio){
 		canvasWidth = windowWidth;
 		canvasHeight = windowHeight;
-		//resizeCanvas(canvasWidth, canvasHeight);
 	}
-	else{}
-}
 
-function mousePressed(){
 	//Date actions
 	if (mouseX > legendStartX+0*(legendWidth/5) && mouseX < legendStartX+0*(legendWidth/5)+legendWidth/5-2 && mouseY > legendStartY && mouseY < legendStartY+25*screenRatio){
 		dateColumn = 5;

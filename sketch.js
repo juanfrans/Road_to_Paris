@@ -39,7 +39,6 @@ function setup() {
 }
 
 function draw(){
-	//screenRatio = windowWidth/1440;
 	screenRatio = canvasWidth/1440;
 	background(20);
 	margin = 10*screenRatio;
@@ -70,12 +69,10 @@ function draw(){
 				positionY = map(events.getColumn(2)[i], 90, -65, 0, mapHeight);
 				direction = events.getColumn(16)[i];
 				directionV = events.getColumn(17)[i];
-				//characters2 = textWidth(events.getColumn(1)[i]);
 				dateText = " ("+events.getColumn(4)[i]+")";
 				characters = textWidth(events.getColumn(0)[i]);
 
 				//Explanation box
-				//if(mouseX > margin+positionX-5 && mouseX < margin+positionX+5 && mouseY > margin+positionY-5 && mouseY < margin+positionY+5){
 				textLeading(6*screenRatio);
 				if(direction>0){
 					if(mouseX > margin+positionX && mouseX < margin+positionX+characters+10*screenRatio && mouseY > margin+positionY-45*screenRatio-vOffset*directionV*screenRatio && mouseY < margin+positionY-5*screenRatio-vOffset*directionV*screenRatio){
@@ -283,54 +280,34 @@ function draw(){
 	image(imgSociety, legendStartX+legendWidth/6*5+5, legendStartY+35*screenRatio, 15*screenRatio, 15*screenRatio);
 
 	//Zoom In & Zoom Out
-	// stroke(0);
-	// strokeWeight(.25);
-	// noFill();
-	// for(var i=0; i<2; i++){
-	// 	rect(mapWidth-i*(82*screenRatio), legendStartY+30*screenRatio, -80*screenRatio, 25*screenRatio);
-	// }
-
-	// noStroke();
-	// fill(0);
-	// textSize(10*screenRatio);
-	// textAlign(CENTER);
-	// text("Zoom In", mapWidth-82*screenRatio-40*screenRatio, legendStartY+45*screenRatio);
-	// text("Zoom Out", mapWidth-40*screenRatio, legendStartY+45*screenRatio);
-
-	noStroke();
-	fill(100, 35);
-	if(zoomValue == true){
-		rect(20, 20, 25, 25);
-	}
-
 	stroke(0);
 	strokeWeight(.25);
 	noFill();
-	//fill(193, 31, 67);
+	fill(193, 31, 67);
 	for(var i=0; i<2; i++){
-		rect(20+i*30, 20, 25, 25);
+		rect(20, 20+i*30, 60, 25);
 	}
-	strokeWeight(2);
-	line(25, 32.5, 40, 32.5);
-	line(32.5, 25, 32.5, 40);
-	line(55, 32.5, 70, 32.5);
-
-	//noStroke();
-	//fill(0);
-	//textSize(10);
-	//textAlign(CENTER);
-	//text("Zoom In", 60, 35);
-	//text("Zoom Out", 60, 65);
+	noStroke();
+	fill(100, 35);
+	if(zoomValue == true){
+		rect(20, 20, 60, 25);
+	}else{}
+	noStroke();
+	fill(0);
+	textSize(10);
+	textAlign(CENTER);
+	text("Zoom In", 50, 35);
+	text("Zoom Out", 50, 65);
 }
 
 function mousePressed(){
 	//Zoom In & Out actions
-	if (mouseX > 20 && mouseX < 45 && mouseY > 20 && mouseY < 45){
+	if (mouseX > 20 && mouseX < 80 && mouseY > 20 && mouseY < 45){
 		canvasWidth = windowWidth*1.5;
 		canvasHeight = windowHeight*1.5;
 		zoomValue = true;
 	}
-	if (mouseX > 50 && mouseX < 80 && mouseY > 20 && mouseY < 45){
+	if (mouseX > 20 && mouseX < 80 && mouseY > 50 && mouseY < 75){
 		canvasWidth = windowWidth;
 		canvasHeight = windowHeight;
 		zoomValue = false;

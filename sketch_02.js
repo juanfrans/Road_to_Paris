@@ -17,7 +17,6 @@ var dateText = "";
 var canvasWidth, canvasHeight;
 var canvas;
 var zoomValue = false;
-var explanationText = false;
 
 function preload(){
 	img = loadImage("data/World_Projected_WGS1984_Short-03-01.png");
@@ -33,7 +32,7 @@ function preload(){
 function setup() {
 	canvasWidth = windowWidth;
 	canvasHeight = windowHeight;
-	textFont("proxima-nova");
+	textFont("Montserrat");
 	canvas = createCanvas(canvasWidth*1.5, canvasHeight*1.5);
 	canvas.parent('map');
 	canvas.position(0, 0);
@@ -54,12 +53,9 @@ function draw(){
 	legendStartY = mapHeight-55*screenRatio;
 	text("test, test", 2000, 2000);
 	strokeCap(SQUARE);
-	textSize(12*screenRatio);
-	explanationText = false;
+	textSize(9*screenRatio);
 
 	image(img, margin, margin, mapWidth, mapHeight);
-	isExplanationText();
-
 
 	for (var i = events.getRowCount() - 1; i >= 1; i--) {
 		iconPosition = 0;
@@ -73,20 +69,18 @@ function draw(){
 				direction = events.getColumn(16)[i];
 				directionV = events.getColumn(17)[i];
 				dateText = " ("+events.getColumn(4)[i]+")";
-				textSize(12*screenRatio);
 				characters = textWidth(events.getColumn(0)[i]);
 
-				//*******************************Explanation box
-				textLeading(13*screenRatio);
+				textLeading(6*screenRatio);
 				if(direction>0){
 					if(mouseX > margin+positionX && mouseX < margin+positionX+characters+10*screenRatio && mouseY > margin+positionY-45*screenRatio-vOffset*directionV*screenRatio && mouseY < margin+positionY-5*screenRatio-vOffset*directionV*screenRatio){
 						noStroke();
 						fill(100, 75);
 						if (mapWidth >= 1024){
 							fill(100);
-							textSize(12*screenRatio);
+							textSize(9*screenRatio);
 							textStyle(BOLD);
-							textLeading(13*screenRatio);
+							textLeading(10*screenRatio);
 							textAlign(LEFT);
 							text(events.getColumn(1)[i]+dateText, margin+positionX*1+7*direction*screenRatio, margin+positionY*1-14*screenRatio-vOffset*directionV*screenRatio, characters*1.2, 100);
 						}else{}
@@ -98,19 +92,15 @@ function draw(){
 						fill(100, 75);
 						if (mapWidth >= 1024){
 							fill(100);
-							textSize(12*screenRatio);
+							textSize(9*screenRatio);
 							textStyle(BOLD);
-							textLeading(13*screenRatio);
+							textLeading(10*screenRatio);
 							textAlign(RIGHT);
 							text(events.getColumn(1)[i]+dateText, margin+positionX*1+7*direction*screenRatio, margin+positionY*1-14*screenRatio-vOffset*directionV*screenRatio, characters*1.05, 100);
 						}else{}
 					}else{}
 				}else{}
 
-
-
-/*
-				//******************************Title box
 				noStroke();
 				fill(100, 75);
 				fill(35, 100, 100);
@@ -122,11 +112,10 @@ function draw(){
 				line(margin+positionX*1, margin+positionY*1-5*screenRatio, margin+positionX*1, margin+positionY*1-35*screenRatio-vOffset*directionV*screenRatio);
 				line(margin+positionX*1, margin+positionY*1-35*screenRatio-vOffset*directionV*screenRatio, margin+positionX*1+(characters+10*screenRatio)*direction, margin+positionY*1-35*screenRatio-vOffset*directionV*screenRatio);
 
-				//******************************Title text
 				noStroke();
 				fill(100);
 				textStyle(BOLD);
-				textSize(12*screenRatio);
+				textSize(9.5*screenRatio);
 				if(direction>0){
 					textAlign(LEFT);
 				}
@@ -134,7 +123,7 @@ function draw(){
 					textAlign(RIGHT);
 				}
 				text(events.getColumn(0)[i], margin+positionX*1+7*direction*screenRatio, margin+positionY*1-38*screenRatio-vOffset*directionV*screenRatio);
-						*/	
+				
 				ellipseMode(CORNER);
 				noStroke();
 				fill(35, 100, 100, 90);
@@ -207,15 +196,18 @@ function draw(){
 		}else{}
 	}
 
+	fill(193, 31, 67);
+	noStroke();
+	rect(titleStartX, legendStartY+8*screenRatio, titleWidth, 25*screenRatio);
 	textStyle(BOLD);
 	textAlign(LEFT);
-	fill(0);
 	noStroke();
 	var titleText = "EL NIÑO - A GLOBAL PHENOMENON";
 	var textDistance = 0;
+	fill(0);
 	for (var k = 0; k < titleText.length; k++) {
 		textSize(22*screenRatio);
-		text(titleText.charAt(k), titleStartX+textDistance, titleStartY);
+		text(titleText.charAt(k), titleStartX+textDistance, legendStartY+32*screenRatio);
 		textDistance = textDistance + map(textWidth(titleText.charAt(k)), 0, textWidth(titleText), 0, titleWidth);
 	};
 	stroke(0);
@@ -223,8 +215,8 @@ function draw(){
 	textStyle(NORMAL);
 	noStroke();
 	textSize(9*screenRatio);
-	textLeading(12*screenRatio);
-	text("For years, the El Niño Southern Oscillation (ENSO) was understood as a regional phenomenon that mainly affected ocean temperatures and precipitation. But in recent decades, scientists have discovered diverse and far-reaching effects of ENSO on everything from mudslides in Africa to the military history of Europe. El Niño causes many of Earth's most drastic variations in weather, temperature, and rainfall--and its worldwide consequences illustrate how deeply interconnected our planet's climate really is.", titleStartX, titleStartY+2*screenRatio, titleWidth, 400);
+	//textLeading(12*screenRatio);
+	//text("For years, the El Niño Southern Oscillation (ENSO) was understood as a regional phenomenon that mainly affected ocean temperatures and precipitation. But in recent decades, scientists have discovered diverse and far-reaching effects of ENSO on everything from mudslides in Africa to the military history of Europe. El Niño causes many of Earth's most drastic variations in weather, temperature, and rainfall--and its worldwide consequences illustrate how deeply interconnected our planet's climate really is.", titleStartX, titleStartY+2*screenRatio, titleWidth, 400);
 
 	stroke(0);
 	strokeWeight(.25);
@@ -297,84 +289,6 @@ function draw(){
 	text("Zoom In", 50*screenRatio, 35*screenRatio);
 	text("Zoom Out", 50*screenRatio, 65*screenRatio);
 	textSize(9.5*screenRatio);
-}
-
-function isExplanationText(){
-	console.log("is this working?");
-	explanationText = false;
-	for (var i = events.getRowCount() - 1; i >= 1; i--) {
-		iconPosition = 0;
-		if(events.getColumn(dateColumn)[i] > 0){
-			if(events.getColumn(tagColumn)[i] > 0){
-				positionX = map(events.getColumn(3)[i], -180, 180, mapWidth*.5, mapWidth*1.5);
-				if(positionX>mapWidth){
-					positionX = positionX - mapWidth;
-				}
-				positionY = map(events.getColumn(2)[i], 90, -65, 0, mapHeight);
-				direction = events.getColumn(16)[i];
-				directionV = events.getColumn(17)[i];
-				dateText = " ("+events.getColumn(4)[i]+")";
-				textSize(12*screenRatio);
-				characters = textWidth(events.getColumn(0)[i]);
-
-				if (direction < 0 && mouseX < margin+positionX && mouseX > margin+positionX+characters*direction+10*direction*screenRatio && mouseY > margin+positionY-45*screenRatio-vOffset*directionV*screenRatio && mouseY < margin+positionY-5*screenRatio-vOffset*directionV*screenRatio){
-					explanationText = true;
-				}
-				else if (direction > 0 && mouseX > margin+positionX && mouseX < margin+positionX+characters+10*screenRatio && mouseY > margin+positionY-45*screenRatio-vOffset*directionV*screenRatio && mouseY < margin+positionY-5*screenRatio-vOffset*directionV*screenRatio){
-					explanationText = true;
-				}
-				else{}
-			}
-		}
-	}	
-	if (explanationText == false){
-		plotAllTitles();
-	}
-	console.log(explanationText);
-}
-
-function plotAllTitles(){
-	for (var i = events.getRowCount() - 1; i >= 1; i--) {
-		iconPosition = 0;
-		if(events.getColumn(dateColumn)[i] > 0){
-			if(events.getColumn(tagColumn)[i] > 0){
-				positionX = map(events.getColumn(3)[i], -180, 180, mapWidth*.5, mapWidth*1.5);
-				if(positionX>mapWidth){
-					positionX = positionX - mapWidth;
-				}
-				positionY = map(events.getColumn(2)[i], 90, -65, 0, mapHeight);
-				direction = events.getColumn(16)[i];
-				directionV = events.getColumn(17)[i];
-				dateText = " ("+events.getColumn(4)[i]+")";
-				textSize(12*screenRatio);
-				characters = textWidth(events.getColumn(0)[i]);
-
-				noStroke();
-				fill(100, 75);
-				fill(35, 100, 100);
-				ellipseMode(CENTER);
-				ellipse(margin+positionX, margin+positionY, 8*screenRatio, 8*screenRatio);
-
-				stroke(35,100,100);
-				strokeWeight(.75);
-				line(margin+positionX*1, margin+positionY*1-5*screenRatio, margin+positionX*1, margin+positionY*1-35*screenRatio-vOffset*directionV*screenRatio);
-				line(margin+positionX*1, margin+positionY*1-35*screenRatio-vOffset*directionV*screenRatio, margin+positionX*1+(characters+10*screenRatio)*direction, margin+positionY*1-35*screenRatio-vOffset*directionV*screenRatio);
-
-		//******************************Title text
-				noStroke();
-				fill(100);
-				textStyle(BOLD);
-				textSize(12*screenRatio);
-				if(direction>0){
-					textAlign(LEFT);
-				}
-				else{
-					textAlign(RIGHT);
-				}
-				text(events.getColumn(0)[i], margin+positionX*1+7*direction*screenRatio, margin+positionY*1-38*screenRatio-vOffset*directionV*screenRatio);
-			}
-		}
-	}
 }
 
 function mousePressed(){

@@ -35,10 +35,10 @@ function setup() {
 	canvasWidth = windowWidth;
 	canvasHeight = windowHeight;
 	textFont("proxima-nova");
-	//createCanvas(canvasWidth*1.5, canvasHeight*1.5);
-	canvas = createCanvas(canvasWidth*1.5, canvasHeight*1.5);
-	canvas.parent('map');
-	canvas.position(0, 0);
+	createCanvas(canvasWidth*1.5, canvasHeight*1.5);
+	//canvas = createCanvas(canvasWidth*1.5, canvasHeight*1.5);
+	//canvas.parent('map');
+	//canvas.position(0, 0);
 	colorMode(HSB, 360, 100, 100, 100);
 }
 
@@ -311,33 +311,29 @@ function plotDescription(){
 			}else{}
 		}
 
+		textLeading(13*screenRatio);
+		if(direction>0){
+			noStroke();
+			fill(100, 75);
+			fill(100);
+			textSize(12*screenRatio);
+			textStyle(BOLD);
 			textLeading(13*screenRatio);
-			if(direction>0){
-				if(mouseX > margin+positionX && mouseX < margin+positionX+characters+10*screenRatio && mouseY > margin+positionY-45*screenRatio-vOffset*directionV*screenRatio && mouseY < margin+positionY-5*screenRatio-vOffset*directionV*screenRatio){
-					noStroke();
-					fill(100, 75);
-					fill(100);
-					textSize(12*screenRatio);
-					textStyle(BOLD);
-					textLeading(13*screenRatio);
-					textAlign(LEFT);
-					text(events.getColumn(1)[hoverItem]+dateText, margin+positionX*1+7*direction*screenRatio, margin+positionY*1-14*screenRatio-vOffset*directionV*screenRatio, characters, 100);
-				}else{}
-			}
-			else if (direction<0){
-				if(mouseX < margin+positionX && mouseX > margin+positionX+characters*direction+10*direction*screenRatio && mouseY > margin+positionY-45*screenRatio-vOffset*directionV*screenRatio && mouseY < margin+positionY-5*screenRatio-vOffset*directionV*screenRatio){
-					noStroke();
-					fill(100, 75);
-					fill(100);
-					textSize(12*screenRatio);
-					textStyle(BOLD);
-					textLeading(13*screenRatio);
-					textAlign(RIGHT);
-					text(events.getColumn(1)[hoverItem]+dateText, margin+positionX*1+7*direction*screenRatio, margin+positionY*1-14*screenRatio-vOffset*directionV*screenRatio, characters, 100);
-				}else{}
-			}else{}
+			textAlign(LEFT);
+			text(events.getColumn(1)[hoverItem]+dateText, margin+positionX*1+7*direction*screenRatio, margin+positionY*1-14*screenRatio-vOffset*directionV*screenRatio, characters, 100);
+		}
+		else if (direction<0){
+			noStroke();
+			fill(100, 75);
+			fill(100);
+			textSize(12*screenRatio);
+			textStyle(BOLD);
+			textLeading(13*screenRatio);
+			textAlign(RIGHT);
+			text(events.getColumn(1)[hoverItem]+dateText, margin+positionX*1+7*direction*screenRatio, margin+positionY*1-14*screenRatio-vOffset*directionV*screenRatio, characters, 100);
 		}else{}
 	}else{}
+}else{}
 }
 
 function plotAllTitles(){

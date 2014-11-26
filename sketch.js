@@ -35,10 +35,10 @@ function setup() {
 	canvasWidth = windowWidth;
 	canvasHeight = windowHeight;
 	textFont("proxima-nova");
-	createCanvas(canvasWidth*1.5, canvasHeight*1.5);
-	//canvas = createCanvas(canvasWidth*1.5, canvasHeight*1.5);
-	//canvas.parent('map');
-	//canvas.position(0, 0);
+	//createCanvas(canvasWidth*1.5, canvasHeight*1.5);
+	canvas = createCanvas(canvasWidth*1.5, canvasHeight*1.5);
+	canvas.parent('map');
+	canvas.position(0, 0);
 	colorMode(HSB, 360, 100, 100, 100);
 }
 

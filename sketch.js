@@ -57,7 +57,7 @@ function draw(){
 	titleStartX = margin+10;
 	titleWidth = 450*screenRatio;
 	legendWidth = 615*screenRatio;
-	legendStartX = titleStartX+titleWidth+25*screenRatio;
+	legendStartX = titleStartX+titleWidth+10*screenRatio;
 	legendStartY = mapHeight-55*screenRatio;
 	text("test, test", 2000, 2000);
 	strokeCap(SQUARE);

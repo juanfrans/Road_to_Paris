@@ -35,7 +35,8 @@ function setup() {
 	canvasWidth = windowWidth;
 	canvasHeight = windowHeight;
 	textFont("proxima-nova");
-	canvas = createCanvas(canvasWidth, canvasHeight);
+	//createCanvas(canvasWidth*1.5, canvasHeight*1.5);
+	canvas = createCanvas(canvasWidth*1.5, canvasHeight*1.5);
 	canvas.parent('map');
 	canvas.position(0, 0);
 	colorMode(HSB, 360, 100, 100, 100);
@@ -44,7 +45,8 @@ function setup() {
 function windowResized(){
 	canvasWidth = windowWidth;
 	canvasHeight = windowHeight;
-	resizeCanvas(windowWidth, windowHeight);
+	resizeCanvas(windowWidth*1.5, windowHeight*1.5);
+	console.log("windowWidth");
 }
 
 function draw(){
@@ -137,6 +139,26 @@ function draw(){
 	image(imgOcean, legendStartX+legendWidth/6*3+3, legendStartY+32*screenRatio, 25*screenRatio, 25*screenRatio);
 	image(imgAnimal, legendStartX+legendWidth/6*4+5, legendStartY+35*screenRatio, 15*screenRatio, 15*screenRatio);
 	image(imgSociety, legendStartX+legendWidth/6*5+5, legendStartY+35*screenRatio, 15*screenRatio, 15*screenRatio);
+
+	stroke(0);
+	strokeWeight(.25);
+	noFill();
+	fill(193, 31, 67);
+	for(var i=0; i<2; i++){
+		rect(20*screenRatio, 20*screenRatio+i*30*screenRatio, 60*screenRatio, 25*screenRatio);
+	}
+	noStroke();
+	fill(100, 35);
+	if(zoomValue == true){
+		rect(20*screenRatio, 20*screenRatio, 60*screenRatio, 25*screenRatio);
+	}else{}
+	noStroke();
+	fill(0);
+	textSize(10*screenRatio);
+	textAlign(CENTER);
+	text("Zoom In", 50*screenRatio, 35*screenRatio);
+	text("Zoom Out", 50*screenRatio, 65*screenRatio);
+	textSize(9.5*screenRatio);
 }
 
 function isExplanationText(){
@@ -428,6 +450,17 @@ function plotAllTitles(){
 }
 
 function mousePressed(){
+	if (mouseX > 20*screenRatio && mouseX < 80*screenRatio && mouseY > 20*screenRatio && mouseY < 45*screenRatio){
+		canvasWidth = windowWidth*1.5;
+		canvasHeight = windowHeight*1.5;
+		zoomValue = true;
+	}
+	if (mouseX > 20*screenRatio && mouseX < 80*screenRatio && mouseY > 50*screenRatio && mouseY < 75*screenRatio){
+		canvasWidth = windowWidth;
+		canvasHeight = windowHeight;
+		zoomValue = false;
+	}
+
 	if (mouseX > legendStartX+0*(legendWidth/5) && mouseX < legendStartX+0*(legendWidth/5)+legendWidth/5-2 && mouseY > legendStartY && mouseY < legendStartY+25*screenRatio){
 		dateColumn = 5;
 		tagColumn = 5;
